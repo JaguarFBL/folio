@@ -1,0 +1,32 @@
+body {
+    color: rgb(0, 0, 0);
+}
+
+
+
+a {
+    font-family: "Momo Trust Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+    text-align: center;
+    margin-left: 20px;
+} 
+
+.link {
+    margin-top: 68%;
+    background-color: rgb(255, 255, 255);
+}
+
+img {
+    background-color: rgb(255, 255, 255);
+}
+
+.header {
+    background-color: brown;
+
+}
+
+.logo {
+    background-color: aqua;
+}
