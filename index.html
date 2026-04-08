@@ -6,545 +6,189 @@
   <title>Portfolio — Louan Robert Roussel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --cream: #F5F0EA;
-      --yellow: #dcdf04;
-      --red: #FF0B00;
-      --white: #ffffff;
-      --grey: #666;
-      --card-bg: #0f0f0f;
-      --border-w: 2.5px;
-      --border: var(--border-w) solid var(--white);
-      --border-dim: var(--border-w) solid rgba(255,255,255,0.12);
-      --shadow: 6px 6px 0px var(--white);
-      --shadow-y: 6px 6px 0px var(--yellow);
-      --shadow-r: 6px 6px 0px var(--red);
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1a1a1a;
+      --yellow: #d4d800;
+      --yellow-dim: rgba(212,216,0,0.1);
+      --red: #e8150a;
+      --white: #f0f0f0;
+      --grey2: #888;
+      --border: 1px solid rgba(255,255,255,0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
-      --font-body: 'DM Mono', monospace;
+      --font-body: 'Space Grotesk', sans-serif;
+      --radius: 4px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* ── GRAIN OVERLAY ── */
+    body { background: var(--bg); color: var(--white); font-family: var(--font-body); overflow-x: hidden; cursor: none; }
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9000; opacity: 0.6;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9000; opacity: 0.5;
     }
 
-    /* ── CUSTOM CURSOR ── */
-    .cursor {
-      width: 10px; height: 10px;
-      background: var(--yellow);
-      position: fixed; pointer-events: none;
-      z-index: 9999; transform: translate(-50%, -50%);
-      transition: transform 0.1s;
-    }
-    .cursor-ring {
-      width: 32px; height: 32px;
-      border: 1.5px solid var(--yellow);
-      position: fixed; pointer-events: none;
-      z-index: 9998; transform: translate(-50%, -50%);
-      transition: all 0.07s ease;
-    }
+    /* CURSOR */
+    .cursor { width: 8px; height: 8px; background: var(--yellow); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cursor-ring { width: 28px; height: 28px; border: 1px solid rgba(212,216,0,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.08s ease; }
     @media (hover: none) { .cursor, .cursor-ring { display: none; } body { cursor: auto; } }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px;
-      height: 56px;
-      background: var(--bg);
-      border-bottom: var(--border);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 28px;
-      letter-spacing: 0.08em;
-      color: var(--yellow);
-      line-height: 1;
-    }
-    .nav-links { display: flex; gap: 0; list-style: none; }
-    .nav-links li { border-left: var(--border); }
-    .nav-links li:last-child { border-right: var(--border); }
-    .nav-links a {
-      display: block;
-      padding: 0 20px;
-      height: 56px;
-      line-height: 56px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--grey);
-      text-decoration: none;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: background 0.15s, color 0.15s;
-    }
-    .nav-links a:hover { background: var(--yellow); color: #000; }
-    .nav-hamburger {
-      display: none;
-      flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.2s; }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 58px; background: rgba(13,13,13,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; letter-spacing: 0.1em; color: var(--yellow); }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a { display: block; padding: 6px 14px; border-radius: var(--radius); font-family: var(--font-mono); font-size: 11px; color: var(--grey2); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.15s, color 0.15s; }
+    .nav-links a:hover { background: var(--yellow-dim); color: var(--yellow); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all 0.2s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* mobile nav */
-    .nav-mobile {
-      display: none;
-      position: fixed; top: 56px; left: 0; right: 0;
-      background: var(--bg);
-      border-bottom: var(--border);
-      z-index: 499;
-      flex-direction: column;
-    }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-mobile { display: none; position: fixed; top: 58px; left: 0; right: 0; background: var(--bg2); border-bottom: var(--border); z-index: 499; flex-direction: column; }
     .nav-mobile.open { display: flex; }
-    .nav-mobile a {
-      display: block; padding: 16px 40px;
-      font-family: var(--font-mono); font-size: 13px;
-      color: var(--grey); text-decoration: none;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-mobile a:hover { background: var(--yellow); color: #000; }
+    .nav-mobile a { display: block; padding: 14px 48px; font-family: var(--font-mono); font-size: 12px; color: var(--grey2); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: var(--border); transition: color 0.15s; }
+    .nav-mobile a:hover { color: var(--yellow); }
+    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } nav { padding: 0 24px; } }
 
-    /* ── SECTIONS ── */
-    section { padding: 120px 60px 80px; position: relative; }
-    @media (max-width: 768px) { section { padding: 100px 20px 60px; } }
+    /* SECTIONS */
+    section { padding: 120px 64px 80px; }
+    @media (max-width: 768px) { section { padding: 100px 24px 60px; } }
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      border-bottom: var(--border);
-      overflow: hidden;
-      padding: 80px 0 0;
-    }
-    .hero-inner {
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 60px 60px 0;
-    }
-    @media (max-width: 768px) { .hero-inner { padding: 60px 20px 0; } }
-    .hero-tag {
-      font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 16px;
-      opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
-    }
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(72px, 13vw, 180px);
-      line-height: 0.88;
-      letter-spacing: 0.02em;
-      opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
-    }
-    .hero-name .accent { color: var(--yellow); -webkit-text-stroke: 0; }
-    .hero-name .outline {
-      -webkit-text-stroke: 2px var(--white);
-      color: transparent;
-    }
-    .hero-sub {
-      max-width: 560px;
-      font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.8;
-      margin-top: 28px;
-      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
-    }
-    .hero-ticker {
-      margin-top: 0;
-      border-top: var(--border);
-      overflow: hidden;
-      height: 52px; display: flex; align-items: center;
-      opacity: 0; animation: fadeIn 1s 0.9s forwards;
-    }
-    .ticker-inner {
-      display: flex; gap: 0; white-space: nowrap;
-      animation: ticker 18s linear infinite;
-    }
-    .ticker-item {
-      font-family: var(--font-display);
-      font-size: 22px; letter-spacing: 0.08em;
-      padding: 0 32px; border-right: var(--border);
-      height: 52px; line-height: 52px;
-      color: rgba(255,255,255,0.25);
-    }
+    /* HERO */
+    #hero { min-height: 100vh; display: grid; grid-template-rows: 1fr auto; border-bottom: var(--border); overflow: hidden; padding: 80px 0 0; }
+    .hero-inner { display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 64px 0; }
+    @media (max-width: 768px) { .hero-inner { padding: 60px 24px 0; } }
+    .hero-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--yellow); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    .hero-name { font-family: var(--font-display); font-size: clamp(64px, 12vw, 168px); line-height: 0.9; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.8s 0.35s forwards; }
+    .hero-name .accent { color: var(--yellow); }
+    .hero-name .outline { -webkit-text-stroke: 1.5px rgba(255,255,255,0.35); color: transparent; }
+    .hero-sub { max-width: 520px; font-size: 14px; font-weight: 300; color: rgba(240,240,240,0.45); line-height: 1.85; margin-top: 28px; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
+    .hero-ticker { border-top: var(--border); overflow: hidden; height: 48px; display: flex; align-items: center; opacity: 0; animation: fadeIn 1s 0.9s forwards; }
+    .ticker-inner { display: flex; white-space: nowrap; animation: ticker 22s linear infinite; }
+    .ticker-item { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; padding: 0 28px; height: 48px; line-height: 48px; color: rgba(255,255,255,0.18); border-right: var(--border); flex-shrink: 0; }
     .ticker-item.hi { color: var(--yellow); }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 16px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--yellow); }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(48px, 7vw, 100px);
-      line-height: 0.9; letter-spacing: 0.02em;
-      margin-bottom: 60px;
-    }
-    @media (max-width: 768px) { .section-title { margin-bottom: 40px; } }
+    /* SECTION HEADER */
+    .section-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--yellow); }
+    .section-title { font-family: var(--font-display); font-size: clamp(42px, 6vw, 88px); line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 56px; }
+    @media (max-width: 768px) { .section-title { margin-bottom: 36px; } }
 
-    /* ── ABOUT ── */
+    /* ABOUT */
     #about { border-bottom: var(--border); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-    .about-text p {
-      font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.65); margin-bottom: 14px;
-    }
-    .about-text p strong { color: var(--white); }
-    .parcours-list { list-style: none; margin-top: 24px; }
-    .parcours-list li {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5;
-    }
-    .parcours-list li .dot {
-      width: 6px; height: 6px; min-width: 6px;
-      background: var(--yellow); margin-top: 5px;
-    }
-    .id-card {
-      background: var(--card-bg);
-      border: var(--border);
-      box-shadow: var(--shadow-y);
-      transform: rotate(1.5deg);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .id-card:hover { transform: rotate(0deg); box-shadow: 10px 10px 0px var(--yellow); }
-    .id-card-header {
-      background: var(--yellow); color: #000;
-      padding: 10px 18px;
-      font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
-    }
+    .about-text p { font-size: 14px; font-weight: 300; line-height: 1.85; color: rgba(240,240,240,0.55); margin-bottom: 14px; }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+    .parcours-list { list-style: none; margin-top: 28px; }
+    .parcours-list li { display: flex; gap: 14px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: rgba(240,240,240,0.4); line-height: 1.5; }
+    .parcours-list li:last-child { border-bottom: none; }
+    .parcours-list li .dot { width: 5px; height: 5px; min-width: 5px; background: var(--yellow); border-radius: 50%; margin-top: 6px; }
+    .id-card { background: var(--bg2); border: var(--border); border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 32px rgba(0,0,0,0.4); }
+    .id-card:hover { transform: translateY(-4px); box-shadow: 0 8px 40px rgba(212,216,0,0.08); }
+    .id-card-header { background: var(--yellow); color: #000; padding: 10px 18px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; }
     .id-card-body { padding: 20px; }
-    .id-row {
-      display: flex; justify-content: space-between;
-      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
-      font-size: 12px;
-    }
+    .id-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .id-row:last-child { border-bottom: none; }
-    .id-label { color: var(--grey); letter-spacing: 0.1em; text-transform: uppercase; font-size: 9px; }
+    .id-label { color: var(--grey2); letter-spacing: 0.08em; text-transform: uppercase; font-size: 9px; font-family: var(--font-mono); }
     .id-value { color: var(--white); font-family: var(--font-mono); font-size: 11px; }
-    .id-barcode {
-      background: #000; color: var(--white); padding: 8px 18px;
-      font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.4em;
-      overflow: hidden; white-space: nowrap; border-top: var(--border);
-    }
+    .id-barcode { background: var(--bg3); color: rgba(255,255,255,0.12); padding: 10px 18px; font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.35em; overflow: hidden; white-space: nowrap; border-top: var(--border); }
 
-    /* ── SKILLS ── */
-    #skills { background: #0a0a0a; border-bottom: var(--border); }
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-      border: var(--border);
-    }
+    /* SKILLS */
+    #skills { background: var(--bg); border-bottom: var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
-    .skill-card {
-      padding: 28px 24px;
-      border-right: var(--border); border-bottom: var(--border);
-      position: relative; overflow: hidden;
-      transition: background 0.2s;
-    }
-    .skill-card:nth-child(3n) { border-right: none; }
-    @media (max-width: 768px) { .skill-card { border-right: none; } }
-    .skill-card:nth-last-child(-n+3) { border-bottom: none; }
-    @media (max-width: 768px) { .skill-card:last-child { border-bottom: none; } .skill-card:nth-last-child(-n+3) { border-bottom: var(--border); } .skill-card:last-child { border-bottom: none; } }
-    .skill-card:hover { background: rgba(220,223,4,0.04); }
-    .skill-card:hover .skill-number { color: var(--yellow); }
-    .skill-number {
-      font-family: var(--font-display); font-size: 60px;
-      color: rgba(255,255,255,0.05); line-height: 1;
-      position: absolute; top: 12px; right: 16px;
-      transition: color 0.2s;
-    }
-    .skill-name {
-      font-family: var(--font-display); font-size: 28px;
-      letter-spacing: 0.04em; margin-bottom: 8px;
-    }
-    .skill-desc { font-size: 11px; color: var(--grey); line-height: 1.7; }
-    .skill-bar {
-      margin-top: 16px; height: 2px;
-      background: rgba(255,255,255,0.08);
-    }
-    .skill-bar-fill { height: 100%; background: var(--yellow); transition: width 1.2s ease; }
+    .skill-card { padding: 28px 24px; background: var(--bg2); border: var(--border); border-radius: 8px; position: relative; overflow: hidden; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { background: var(--bg3); border-color: rgba(212,216,0,0.2); transform: translateY(-2px); }
+    .skill-number { font-family: var(--font-display); font-size: 52px; color: rgba(255,255,255,0.04); line-height: 1; position: absolute; top: 12px; right: 14px; transition: color 0.2s; }
+    .skill-card:hover .skill-number { color: rgba(212,216,0,0.15); }
+    .skill-name { font-family: var(--font-display); font-size: 26px; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .skill-desc { font-size: 12px; font-weight: 300; color: rgba(240,240,240,0.45); line-height: 1.7; }
+    .skill-bar { margin-top: 18px; height: 1.5px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+    .skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--yellow), rgba(212,216,0,0.4)); border-radius: 2px; transition: width 1.2s ease; }
 
-    /* ── PROJECTS ── */
+    /* PROJECTS */
     #projects { border-bottom: var(--border); }
-    .projects-list { display: flex; flex-direction: column; gap: 0; border: var(--border); }
-    .project-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 0;
-      border-bottom: var(--border);
-      transition: background 0.15s;
-      cursor: default;
-    }
+    .projects-list { display: flex; flex-direction: column; border: var(--border); border-radius: 8px; overflow: hidden; }
+    .project-item { display: grid; grid-template-columns: 68px 1fr auto; border-bottom: var(--border); transition: background 0.15s; }
     .project-item:last-child { border-bottom: none; }
-    .project-item:hover { background: rgba(220,223,4,0.04); }
-    .project-item:hover .project-arrow { transform: translate(4px, -4px); }
-    .project-num {
-      font-family: var(--font-display); font-size: 18px;
-      color: rgba(255,255,255,0.15);
-      padding: 28px 20px; border-right: var(--border);
-      display: flex; align-items: flex-start;
-    }
-    .project-body { padding: 28px 32px; }
-    @media (max-width: 600px) {
-      .project-item { grid-template-columns: 50px 1fr; }
-      .project-num { padding: 20px 12px; font-size: 14px; }
-      .project-body { padding: 20px 16px; }
-      .project-side { display: none; }
-    }
-    .project-type {
-      font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 8px;
-    }
-    .project-title {
-      font-family: var(--font-display); font-size: clamp(24px, 4vw, 40px);
-      letter-spacing: 0.04em; margin-bottom: 10px; line-height: 1;
-    }
-    .project-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 600px; }
+    .project-item:hover { background: rgba(255,255,255,0.025); }
+    .project-num { font-family: var(--font-display); font-size: 16px; color: rgba(255,255,255,0.12); padding: 26px 18px; border-right: var(--border); display: flex; align-items: flex-start; }
+    .project-body { padding: 26px 28px; }
+    .project-type { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; font-family: var(--font-mono); }
+    .project-title { font-family: var(--font-display); font-size: clamp(22px, 3.5vw, 36px); letter-spacing: 0.04em; margin-bottom: 10px; line-height: 1; }
+    .project-desc { font-size: 12px; font-weight: 300; color: rgba(240,240,240,0.45); line-height: 1.75; max-width: 580px; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-    .tag {
-      font-size: 9px; padding: 3px 8px;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.4); letter-spacing: 0.1em;
-      font-family: var(--font-mono);
-    }
-    .project-side {
-      padding: 28px 24px;
-      border-left: var(--border);
-      display: flex; flex-direction: column;
-      justify-content: space-between; align-items: flex-end;
-      min-width: 140px;
-    }
-    .project-status {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey);
-    }
-    .status-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--grey);
-    }
-    .status-dot.active { background: #4dff91; box-shadow: 0 0 6px #4dff91; animation: pulse 2s infinite; }
-    .status-dot.here { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+    .tag { font-size: 9px; padding: 3px 8px; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.35); letter-spacing: 0.08em; font-family: var(--font-mono); border-radius: 2px; }
+    .project-side { padding: 26px 22px; border-left: var(--border); display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; min-width: 130px; }
+    .project-status { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey2); font-family: var(--font-mono); }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--grey2); }
+    .status-dot.active { background: #4dff91; box-shadow: 0 0 5px #4dff91; animation: pulse 2s infinite; }
+    .status-dot.here { background: var(--yellow); }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .project-arrow {
-      font-family: var(--font-mono); font-size: 20px; color: rgba(255,255,255,0.2);
-      transition: transform 0.2s, color 0.2s;
-    }
-    .project-item:hover .project-arrow { color: var(--yellow); }
-
-    /* FEATURED — Watson terminal */
-    .project-item.featured {
-      grid-template-columns: 1fr;
-      display: block;
-      background: #060606;
-    }
-    .project-item.featured .project-body { border-bottom: var(--border); }
-    .project-terminal {
-      font-family: var(--font-mono); font-size: 12px;
-      line-height: 1.9; color: rgba(255,255,255,0.4);
-      padding: 24px 32px; background: #060606;
-    }
-    @media (max-width: 600px) { .project-terminal { padding: 16px; font-size: 11px; } }
-    .t-green { color: #4dff91; }
-    .t-yellow { color: var(--yellow); }
-    .t-grey { color: #444; }
-    .t-red { color: var(--red); }
-    .blink { display: inline-block; width: 7px; height: 13px; background: var(--yellow); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px; }
+    .project-arrow { font-family: var(--font-mono); font-size: 16px; color: rgba(255,255,255,0.15); transition: transform 0.2s, color 0.2s; }
+    .project-item:hover .project-arrow { color: var(--yellow); transform: translate(3px,-3px); }
+    .project-item.featured { grid-template-columns: 1fr; display: block; }
+    .project-item.featured .project-body { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; border-bottom: var(--border); }
+    .project-terminal { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.95; color: rgba(240,240,240,0.35); padding: 22px 28px; background: rgba(0,0,0,0.2); }
+    @media (max-width: 600px) { .project-item { grid-template-columns: 46px 1fr; } .project-num { padding: 18px 10px; font-size: 13px; } .project-body { padding: 18px 14px; } .project-side { display: none; } .project-item.featured .project-body { grid-template-columns: 1fr; } }
+    .t-green { color: #4dff91; } .t-yellow { color: var(--yellow); } .t-grey { color: #444; }
+    .blink { display: inline-block; width: 6px; height: 12px; background: var(--yellow); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── TOOLS ── */
+    /* TOOLS */
     #tools { border-bottom: var(--border); }
-    .tools-grid { display: flex; flex-wrap: wrap; gap: 0; border: var(--border); }
-    .tool-chip {
-      display: flex; align-items: center; gap: 10px;
-      padding: 16px 24px;
-      border-right: var(--border); border-bottom: var(--border);
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
-      transition: background 0.15s, color 0.15s;
-      cursor: default;
-    }
-    .tool-chip:hover { background: var(--yellow); color: #000; }
-    .tool-chip:hover .tool-dot { background: #000; }
-    .tool-dot { width: 5px; height: 5px; background: var(--yellow); min-width: 5px; }
+    .tools-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tool-chip { display: flex; align-items: center; gap: 8px; padding: 9px 16px; background: var(--bg2); border: var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: rgba(240,240,240,0.5); transition: background 0.15s, color 0.15s, border-color 0.15s; cursor: default; }
+    .tool-chip:hover { background: var(--yellow-dim); color: var(--yellow); border-color: rgba(212,216,0,0.3); }
+    .tool-dot { width: 4px; height: 4px; background: var(--yellow); border-radius: 50%; min-width: 4px; opacity: 0.5; }
+    .tool-chip:hover .tool-dot { opacity: 1; }
 
-    /* ── ULTRON SECTION ── */
-    #ultron {
-      background: #000;
-      border-bottom: var(--border);
-      overflow: hidden;
-      position: relative;
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 120px 60px 80px;
-    }
-    @media (max-width: 768px) { #ultron { padding: 100px 20px 60px; } }
-
-    /* scan line effect */
-    #ultron::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px, rgba(255,11,0,0.015) 3px, rgba(255,11,0,0.015) 4px
-      );
-      pointer-events: none; z-index: 1;
-    }
-
-    .ultron-label {
-      font-family: var(--font-mono);
-      font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 16px;
-      display: flex; align-items: center; gap: 12px;
-      position: relative; z-index: 2;
-    }
-    .ultron-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--red); }
-
-    .ultron-name {
-      font-family: var(--font-display);
-      font-size: clamp(80px, 18vw, 260px);
-      line-height: 0.85; letter-spacing: 0.04em;
-      color: var(--red);
-      position: relative; z-index: 2;
-      animation: glitch 6s infinite;
-      text-shadow: 4px 0 0 rgba(255,11,0,0.3), -4px 0 0 rgba(0,200,255,0.2);
-    }
+    /* ULTRON */
+    #ultron { background: #080808; border-bottom: var(--border); overflow: hidden; position: relative; padding: 120px 64px 80px; }
+    @media (max-width: 768px) { #ultron { padding: 100px 24px 60px; } }
+    #ultron::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(255,21,10,0.006) 4px, rgba(255,21,10,0.006) 5px); pointer-events: none; z-index: 0; }
+    .ultron-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; position: relative; z-index: 2; }
+    .ultron-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--red); }
+    .ultron-name { font-family: var(--font-display); font-size: clamp(72px, 16vw, 220px); line-height: 0.88; letter-spacing: 0.04em; color: var(--red); animation: glitch 7s infinite; position: relative; z-index: 2; }
     @keyframes glitch {
-      0%, 90%, 100% { transform: none; clip-path: none; }
-      91% { transform: translate(-3px, 1px); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); }
-      92% { transform: translate(3px, -1px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
-      93% { transform: none; clip-path: none; }
-      94% { transform: translate(-2px, 2px); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
-      95% { transform: none; clip-path: none; }
+      0%, 88%, 100% { text-shadow: none; transform: none; }
+      89% { text-shadow: -3px 0 rgba(0,200,255,0.35), 3px 0 rgba(255,21,10,0.35); transform: translate(-2px,0); }
+      90% { text-shadow: 3px 0 rgba(0,200,255,0.35), -3px 0 rgba(255,21,10,0.35); transform: translate(2px,0); }
+      91% { text-shadow: none; transform: none; }
     }
-
-    .ultron-eye-wrap {
-      position: absolute; right: 60px; top: 50%;
-      transform: translateY(-50%);
-      z-index: 2;
-    }
-    @media (max-width: 900px) {
-      .ultron-eye-wrap { position: relative; right: auto; top: auto; transform: none; margin: 40px auto 0; display: flex; justify-content: center; }
-    }
-
-    /* ── ULTRON SVG FACE ── */
-    .ultron-face-svg {
-      width: clamp(200px, 30vw, 380px);
-      height: auto;
-      filter: drop-shadow(0 0 20px rgba(255,11,0,0.6)) drop-shadow(0 0 60px rgba(255,11,0,0.2));
-    }
-    .ultron-jaw { transform-origin: 50% 78%; animation: jawMove 4s ease-in-out infinite; }
-    @keyframes jawMove {
-      0%, 100% { transform: rotate(0deg); }
-      30% { transform: rotate(3deg); }
-      60% { transform: rotate(-1deg); }
-      80% { transform: rotate(2deg); }
-    }
-    .ultron-eye-glow {
-      animation: eyePulse 2.5s ease-in-out infinite;
-    }
-    @keyframes eyePulse {
-      0%, 100% { opacity: 1; filter: brightness(1); }
-      50% { opacity: 0.4; filter: brightness(0.5); }
-    }
-    .ultron-eye-glow-2 { animation: eyePulse 2.5s ease-in-out infinite 0.4s; }
-
-    .ultron-quote {
-      font-family: var(--font-display);
-      font-size: clamp(18px, 3vw, 32px);
-      color: rgba(255,255,255,0.08);
-      line-height: 1.4;
-      margin-top: 24px;
-      max-width: 600px;
-      position: relative; z-index: 2;
-      letter-spacing: 0.04em;
-    }
-    .ultron-quote .typed-text { color: rgba(255,11,0,0.7); }
-
-    .ultron-log {
-      margin-top: 40px;
-      font-family: var(--font-mono); font-size: 11px;
-      color: rgba(255,11,0,0.5); line-height: 2;
-      max-width: 500px; position: relative; z-index: 2;
-    }
-    .ultron-log .log-line { display: block; }
+    .ultron-desc { max-width: 720px; margin-top: 36px; position: relative; z-index: 2; }
+    .ultron-desc p { font-size: 15px; font-weight: 300; line-height: 1.95; color: rgba(240,240,240,0.32); margin-bottom: 20px; }
+    .ultron-desc p em { color: rgba(232,21,10,0.75); font-style: normal; font-weight: 400; }
+    .ultron-pause { font-family: var(--font-display); font-size: 36px; letter-spacing: 0.06em; color: rgba(232,21,10,0.55); margin-bottom: 28px; display: block; position: relative; z-index: 2; }
+    .ultron-log { margin-top: 48px; font-family: var(--font-mono); font-size: 11px; color: rgba(232,21,10,0.4); line-height: 2.1; border-top: 1px solid rgba(232,21,10,0.12); padding-top: 24px; position: relative; z-index: 2; max-width: 620px; }
     .ultron-log .log-bright { color: var(--red); }
 
-    /* circuit bg lines */
-    .ultron-circuit {
-      position: absolute; inset: 0; z-index: 0; opacity: 0.06;
-      pointer-events: none;
-    }
-
-    /* ── CONTACT ── */
-    #contact { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; border-bottom: var(--border); }
-    .contact-cta {
-      font-family: var(--font-display);
-      font-size: clamp(40px, 9vw, 120px);
-      line-height: 0.9; letter-spacing: 0.02em;
-      margin-bottom: 48px;
-    }
+    /* CONTACT */
+    #contact { min-height: 55vh; display: flex; flex-direction: column; justify-content: center; border-bottom: var(--border); }
+    .contact-cta { font-family: var(--font-display); font-size: clamp(36px, 8vw, 112px); line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 48px; }
     .contact-cta span { color: var(--yellow); }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 0; border: var(--border); width: fit-content; }
-    .contact-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: transparent;
-      border-right: var(--border);
-      color: var(--white);
-      padding: 18px 32px;
-      font-family: var(--font-mono); font-size: 12px;
-      text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase;
-      transition: background 0.15s, color 0.15s;
-    }
-    .contact-btn:last-child { border-right: none; }
-    .contact-btn:hover { background: var(--yellow); color: #000; }
-    .contact-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-    @media (max-width: 600px) {
-      .contact-links { flex-direction: column; width: 100%; border: var(--border); }
-      .contact-btn { border-right: none; border-bottom: var(--border); }
-      .contact-btn:last-child { border-bottom: none; }
-    }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--bg2); border: var(--border); border-radius: var(--radius); color: rgba(240,240,240,0.65); padding: 14px 24px; font-family: var(--font-mono); font-size: 11px; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .contact-btn:hover { background: var(--yellow-dim); color: var(--yellow); border-color: rgba(212,216,0,0.35); }
+    .contact-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 20px 60px;
-      display: flex; justify-content: space-between; align-items: center;
-      font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.2);
-      letter-spacing: 0.15em; text-transform: uppercase;
-    }
-    @media (max-width: 600px) { footer { flex-direction: column; gap: 6px; padding: 20px; text-align: center; } }
+    /* FOOTER */
+    footer { padding: 20px 64px; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 0.12em; text-transform: uppercase; border-top: var(--border); }
+    @media (max-width: 600px) { footer { flex-direction: column; gap: 6px; padding: 20px 24px; text-align: center; } }
 
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* ── MARQUEE NAV ── */
-    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
   </style>
 </head>
 <body>
@@ -552,11 +196,10 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo">LRR</div>
     <ul class="nav-links">
-      <li><a href="#about">À propos</a></li>
+      <li><a href="#about">&#192; propos</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projets</a></li>
       <li><a href="#ultron">Ultron</a></li>
@@ -567,248 +210,152 @@
     </button>
   </nav>
   <div class="nav-mobile" id="navMobile">
-    <a href="#about" class="nav-m-link">À propos</a>
+    <a href="#about" class="nav-m-link">&#192; propos</a>
     <a href="#skills" class="nav-m-link">Skills</a>
     <a href="#projects" class="nav-m-link">Projets</a>
     <a href="#ultron" class="nav-m-link">Ultron</a>
     <a href="#contact" class="nav-m-link">Contact</a>
   </div>
 
-  <!-- HERO -->
   <section id="hero">
     <div class="hero-inner">
-      <p class="hero-tag">Informatique · Cybersécurité · Ploërmel — 2026</p>
+      <p class="hero-tag">Informatique &middot; Cybers&#233;curit&#233; &middot; Plo&#235;rmel &#8212; 2026</p>
       <h1 class="hero-name">
         <span class="outline">LOUAN</span><br>
         <span class="accent">ROBERT</span><br>
-        <span style="-webkit-text-stroke: 2px rgba(255,255,255,0.3); color: transparent;">ROUSSEL</span>
+        <span style="-webkit-text-stroke:1.5px rgba(255,255,255,0.2);color:transparent;">ROUSSEL</span>
       </h1>
-      <p class="hero-sub">Amoureux cybersécurité, développeur full-stack passionné. Je construis des projets à l'interface de l'IA, du réseau et du web.</p>
+      <p class="hero-sub">Amoureux de cybers&#233;curit&#233;, d&#233;veloppeur full-stack passionn&#233;. Je construis des projets &#224; l&#8217;interface de l&#8217;IA, du r&#233;seau et du web.</p>
     </div>
     <div class="hero-ticker">
-      <div class="ticker-inner" id="ticker">
+      <div class="ticker-inner">
         <span class="ticker-item hi">BUT INFORMATIQUE</span>
-        <span class="ticker-item">CYBERSÉCURITÉ</span>
+        <span class="ticker-item">CYBERS&#201;CURIT&#201;</span>
         <span class="ticker-item hi">RASPBERRY PI</span>
-        <span class="ticker-item">FLASK · PYTHON</span>
+        <span class="ticker-item">FLASK &middot; PYTHON</span>
         <span class="ticker-item hi">WATSON AI</span>
         <span class="ticker-item">NOVA CAMPUS</span>
         <span class="ticker-item hi">ENSIBS</span>
-        <span class="ticker-item">PLOËRMEL · BRETAGNE</span>
+        <span class="ticker-item">PLO&#203;RMEL &middot; BRETAGNE</span>
         <span class="ticker-item hi">BUT INFORMATIQUE</span>
-        <span class="ticker-item">CYBERSÉCURITÉ</span>
+        <span class="ticker-item">CYBERS&#201;CURIT&#201;</span>
         <span class="ticker-item hi">RASPBERRY PI</span>
-        <span class="ticker-item">FLASK · PYTHON</span>
+        <span class="ticker-item">FLASK &middot; PYTHON</span>
         <span class="ticker-item hi">WATSON AI</span>
         <span class="ticker-item">NOVA CAMPUS</span>
         <span class="ticker-item hi">ENSIBS</span>
-        <span class="ticker-item">PLOËRMEL · BRETAGNE</span>
+        <span class="ticker-item">PLO&#203;RMEL &middot; BRETAGNE</span>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about">
-    <div class="section-label">01 · À propos</div>
-    <h2 class="section-title">PRÉSENTATION</h2>
+    <div class="section-label">01 &middot; &#192; propos</div>
+    <h2 class="section-title">PR&#201;SENTATION</h2>
     <div class="about-grid reveal">
       <div class="about-text">
-        <p>Je suis <strong>Louan Robert Roussel</strong>, étudiant en <strong>STI2D option SIN</strong> au lycée La Mennais, avec un objectif long terme : intégrer l'<strong>ENSIBS</strong> via le partenariat IUT.</p>
-        <p>Mon Bac STI2D SIN m'a permis de développer des bases solides en électronique, programmation embarquée et systèmes numériques.</p>
-        <p>Curieux de nature, je touche à tout : IA locale, cybersécurité, design brutaliste, systèmes distribués… et je construis des projets concrets pour apprendre.</p>
+        <p>Je suis <strong>Louan Robert Roussel</strong>, &#233;tudiant en <strong>STI2D option SIN</strong> au lyc&#233;e La Mennais, avec un objectif long terme&#160;: int&#233;grer l&#8217;<strong>ENSIBS</strong> via le partenariat IUT.</p>
+        <p>Mon Bac STI2D SIN m&#8217;a permis de d&#233;velopper des bases solides en &#233;lectronique, programmation embarqu&#233;e et syst&#232;mes num&#233;riques.</p>
+        <p>Curieux de nature, je touche &#224; tout&#160;: IA locale, cybers&#233;curit&#233;, design brutaliste, syst&#232;mes distribu&#233;s&#8230; et je construis des projets concrets pour apprendre.</p>
         <ul class="parcours-list">
-          <li><span class="dot"></span>Maternelle & primaire — Saint Jeanne d'Arc, Guer</li>
-          <li><span class="dot"></span>Collège — Saint Maurice, Guer</li>
-          <li><span class="dot"></span>Bac STI2D SIN — Lycée La Mennais, Ploërmel</li>
-          <li><span class="dot"></span>Objectif → BUT Informatique (Cybersécurité) — IUT de Vannes</li>
+          <li><span class="dot"></span>Maternelle &amp; primaire &#8212; Saint Jeanne d&#8217;Arc, Guer</li>
+          <li><span class="dot"></span>Coll&#232;ge &#8212; Saint Maurice, Guer</li>
+          <li><span class="dot"></span>Bac STI2D SIN &#8212; Lyc&#233;e La Mennais, Plo&#235;rmel</li>
+          <li><span class="dot"></span>Objectif &#8594; BUT Informatique (Cybers&#233;curit&#233;) &#8212; IUT de Vannes</li>
         </ul>
       </div>
       <div class="id-card">
-        <div class="id-card-header">// CARTE D'EMBARQUEMENT — N° 44-33-1</div>
+        <div class="id-card-header">// CARTE D&#8217;EMBARQUEMENT &#8212; N&#176; 44-33-1</div>
         <div class="id-card-body">
           <div class="id-row"><span class="id-label">Nom</span><span class="id-value">Robert Roussel</span></div>
-          <div class="id-row"><span class="id-label">Prénom</span><span class="id-value">Louan</span></div>
-          <div class="id-row"><span class="id-label">Né le</span><span class="id-value">13.02.2008</span></div>
-          <div class="id-row"><span class="id-label">Ville</span><span class="id-value">Ploërmel, Bretagne</span></div>
-          <div class="id-row"><span class="id-label">Diplômes</span><span class="id-value">Brevet · ASSR 1&2 · PSC1</span></div>
-          <div class="id-row"><span class="id-label">Passions</span><span class="id-value">IA · Cyber · Design · Géopol</span></div>
-          <div class="id-row"><span class="id-label">Mots clés</span><span class="id-value">Ambition · Curiosité</span></div>
+          <div class="id-row"><span class="id-label">Pr&#233;nom</span><span class="id-value">Louan</span></div>
+          <div class="id-row"><span class="id-label">N&#233; le</span><span class="id-value">13.02.2008</span></div>
+          <div class="id-row"><span class="id-label">Ville</span><span class="id-value">Plo&#235;rmel, Bretagne</span></div>
+          <div class="id-row"><span class="id-label">Dipl&#244;mes</span><span class="id-value">Brevet &middot; ASSR 1&amp;2 &middot; PSC1</span></div>
+          <div class="id-row"><span class="id-label">Passions</span><span class="id-value">IA &middot; Cyber &middot; Design &middot; G&#233;opol</span></div>
+          <div class="id-row"><span class="id-label">Mots cl&#233;s</span><span class="id-value">Ambition &middot; Curiosit&#233;</span></div>
         </div>
         <div class="id-barcode">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</div>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills">
-    <div class="section-label">02 · Compétences</div>
-    <h2 class="section-title">STACK & SAVOIR-FAIRE</h2>
+    <div class="section-label">02 &middot; Comp&#233;tences</div>
+    <h2 class="section-title">STACK &amp; SAVOIR-FAIRE</h2>
     <div class="skills-grid reveal">
-      <div class="skill-card">
-        <span class="skill-number">01</span>
-        <div class="skill-name">HTML / CSS</div>
-        <div class="skill-desc">Sites web dynamiques, design systems, animations CSS. Intégration MySQL/PHP full-stack.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-number">02</span>
-        <div class="skill-name">PYTHON</div>
-        <div class="skill-desc">Flask, API Mistral/Anthropic, automatisation, Raspberry Pi, SSE streaming.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-number">03</span>
-        <div class="skill-name">C++</div>
-        <div class="skill-desc">Bases solides STI2D. Programmation systèmes, logique bas-niveau, algorithmie.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-number">04</span>
-        <div class="skill-name">PHP / SQL</div>
-        <div class="skill-desc">Backend web, auth, sessions, MariaDB, pattern PRG, requêtes complexes.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-number">05</span>
-        <div class="skill-name">LINUX</div>
-        <div class="skill-desc">Kali, Zorin OS, Raspberry Pi OS, admin système, scripts bash, hardening.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-number">06</span>
-        <div class="skill-name">CYBER</div>
-        <div class="skill-desc">TryHackMe, PHP/.htaccess hardening, OWASP, pentesting en apprentissage actif.</div>
-        <div class="skill-bar"><div class="skill-bar-fill" style="width:40%"></div></div>
-      </div>
+      <div class="skill-card"><span class="skill-number">01</span><div class="skill-name">HTML / CSS</div><div class="skill-desc">Sites web dynamiques, design systems, animations CSS. Int&#233;gration MySQL/PHP full-stack.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-card"><span class="skill-number">02</span><div class="skill-name">PYTHON</div><div class="skill-desc">Flask, API Mistral/Anthropic, automatisation, Raspberry Pi, SSE streaming.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+      <div class="skill-card"><span class="skill-number">03</span><div class="skill-name">C++</div><div class="skill-desc">Bases solides STI2D. Programmation syst&#232;mes, logique bas-niveau, algorithmie.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+      <div class="skill-card"><span class="skill-number">04</span><div class="skill-name">PHP / SQL</div><div class="skill-desc">Backend web, auth, sessions, MariaDB, pattern PRG, requ&#234;tes complexes.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+      <div class="skill-card"><span class="skill-number">05</span><div class="skill-name">LINUX</div><div class="skill-desc">Kali, Zorin OS, Raspberry Pi OS, admin syst&#232;me, scripts bash, hardening.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+      <div class="skill-card"><span class="skill-number">06</span><div class="skill-name">CYBER</div><div class="skill-desc">TryHackMe, PHP/.htaccess hardening, OWASP, pentesting en apprentissage actif.</div><div class="skill-bar"><div class="skill-bar-fill" style="width:40%"></div></div></div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects">
-    <div class="section-label">03 · Projets</div>
+    <div class="section-label">03 &middot; Projets</div>
     <h2 class="section-title">CE QUE JE CONSTRUIS</h2>
-
     <div class="projects-list reveal">
 
-      <!-- Watson FEATURED -->
       <div class="project-item featured">
-        <div class="project-body" style="display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start;">
+        <div class="project-body">
           <div>
-            <div class="project-type">IA · Raspberry Pi · Full-stack</div>
+            <div class="project-type">IA &middot; Raspberry Pi &middot; Full-stack</div>
             <h3 class="project-title">W.A.T.S.O.N.</h3>
-            <p class="project-desc">Assistant personnel IA sur Raspberry Pi 5. Multi-agents Flask, streaming SSE, mémoire SQLite WAL, Spotify via Spotipy, auth 3 rôles, outils (DuckDuckGo, bash, fichiers). API Mistral pour l'inférence, Ollama + qwen2.5-coder:7b pour le code complexe en local.</p>
-            <div class="project-tags">
-              <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Mistral API</span>
-              <span class="tag">Ollama</span><span class="tag">SQLite</span><span class="tag">SSE</span>
-              <span class="tag">Raspberry Pi 5</span><span class="tag">Spotify</span>
-            </div>
+            <p class="project-desc">Assistant personnel IA sur Raspberry Pi 5. Multi-agents Flask, streaming SSE, m&#233;moire SQLite WAL, Spotify via Spotipy, auth 3 r&#244;les, outils (DuckDuckGo, bash, fichiers). API Mistral pour l&#8217;inf&#233;rence, Ollama + qwen2.5-coder:7b pour le code complexe en local.</p>
+            <div class="project-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Mistral API</span><span class="tag">Ollama</span><span class="tag">SQLite</span><span class="tag">SSE</span><span class="tag">Raspberry Pi 5</span><span class="tag">Spotify</span></div>
           </div>
           <span class="project-status"><span class="status-dot active"></span> En dev</span>
         </div>
         <div class="project-terminal">
-          <span class="t-grey">// watson · init · 192.168.1.159</span><br>
-          <span class="t-green">✓ Flask</span><span class="t-grey"> :5000 · WAL mode on</span><br>
-          <span class="t-green">✓ SQLite</span><span class="t-grey"> memory loaded (147 entries)</span><br>
-          <span class="t-green">✓ Spotify</span><span class="t-grey"> token refreshed · connected</span><br>
-          <span class="t-yellow">→ Mistral API</span><span class="t-grey"> ready · model: mistral-large</span><br>
-          <span class="t-yellow">→ Ollama</span><span class="t-grey"> qwen2.5-coder:7b · loaded</span><br>
-          <span class="t-grey">────────────────────────────────────</span><br>
-          <span class="t-green">Monsieur</span><span class="t-grey">, que puis-je faire pour vous ?</span><span class="blink"></span>
+          <span class="t-grey">// watson &middot; init &middot; 192.168.1.159</span><br>
+          <span class="t-green">&#10003; Flask</span><span class="t-grey"> :5000 &middot; WAL mode on</span><br>
+          <span class="t-green">&#10003; SQLite</span><span class="t-grey"> memory loaded (147 entries)</span><br>
+          <span class="t-green">&#10003; Spotify</span><span class="t-grey"> token refreshed &middot; connected</span><br>
+          <span class="t-yellow">&#8594; Mistral API</span><span class="t-grey"> ready &middot; model: mistral-large</span><br>
+          <span class="t-yellow">&#8594; Ollama</span><span class="t-grey"> qwen2.5-coder:7b &middot; loaded</span><br>
+          <span class="t-grey">&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</span><br>
+          <span class="t-green">Monsieur</span><span class="t-grey">, que puis-je faire pour vous&#160;?</span><span class="blink"></span>
         </div>
       </div>
 
-      <!-- Nova -->
       <div class="project-item reveal">
         <div class="project-num">02</div>
-        <div class="project-body">
-          <div class="project-type">Réseau social · Web · PHP</div>
-          <h3 class="project-title">NOVA</h3>
-          <p class="project-desc">Réseau social de campus en PHP/MariaDB. Design brutaliste, profils ultra-customisables, hashtags, @mentions, clubs, chat, notifications DB-driven. Hébergé sur InfinityFree.</p>
-          <div class="project-tags">
-            <span class="tag">PHP</span><span class="tag">MariaDB</span><span class="tag">CSS Brutaliste</span><span class="tag">InfinityFree</span><span class="tag">PRG</span>
-          </div>
-        </div>
-        <div class="project-side">
-          <span class="project-status"><span class="status-dot active"></span> Actif</span>
-          <span class="project-arrow">↗</span>
-        </div>
+        <div class="project-body"><div class="project-type">R&#233;seau social &middot; Web &middot; PHP</div><h3 class="project-title">NOVA</h3><p class="project-desc">R&#233;seau social de campus en PHP/MariaDB. Design brutaliste, profils ultra-customisables, hashtags, @mentions, clubs, chat, notifications DB-driven. H&#233;berg&#233; sur InfinityFree.</p><div class="project-tags"><span class="tag">PHP</span><span class="tag">MariaDB</span><span class="tag">CSS Brutaliste</span><span class="tag">InfinityFree</span><span class="tag">PRG</span></div></div>
+        <div class="project-side"><span class="project-status"><span class="status-dot active"></span> Actif</span><span class="project-arrow">&#8599;</span></div>
       </div>
 
-      <!-- Kart Telemetry -->
       <div class="project-item reveal">
         <div class="project-num">03</div>
-        <div class="project-body">
-          <div class="project-type">Dashboard · IoT · PHP</div>
-          <h3 class="project-title">KART TELEMETRY</h3>
-          <p class="project-desc">Dashboard télémétrie kart de compétition. PHP/MySQL sur Raspberry Pi, polling JSON 4s, capteurs temps réel, sessions & pilotes.</p>
-          <div class="project-tags">
-            <span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Raspberry Pi</span><span class="tag">JSON API</span><span class="tag">JS Polling</span>
-          </div>
-        </div>
-        <div class="project-side">
-          <span class="project-status"><span class="status-dot active"></span> Déployé</span>
-          <span class="project-arrow">↗</span>
-        </div>
+        <div class="project-body"><div class="project-type">Dashboard &middot; IoT &middot; PHP</div><h3 class="project-title">KART TELEMETRY</h3><p class="project-desc">Dashboard t&#233;l&#233;m&#233;trie kart de comp&#233;tition. PHP/MySQL sur Raspberry Pi, polling JSON 4s, capteurs temps r&#233;el, sessions &amp; pilotes.</p><div class="project-tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Raspberry Pi</span><span class="tag">JSON API</span><span class="tag">JS Polling</span></div></div>
+        <div class="project-side"><span class="project-status"><span class="status-dot active"></span> D&#233;ploy&#233;</span><span class="project-arrow">&#8599;</span></div>
       </div>
 
-      <!-- Portfolio -->
       <div class="project-item reveal">
         <div class="project-num">04</div>
-        <div class="project-body">
-          <div class="project-type">Web · Design · Personnel</div>
-          <h3 class="project-title">CE PORTFOLIO</h3>
-          <p class="project-desc">Portfolio personnel HTML/CSS vanilla, animations, design brutaliste. Vous y êtes 😅</p>
-          <div class="project-tags">
-            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Vanilla JS</span>
-          </div>
-        </div>
-        <div class="project-side">
-          <span class="project-status"><span class="status-dot here"></span> Vous y êtes</span>
-          <span class="project-arrow">↗</span>
-        </div>
+        <div class="project-body"><div class="project-type">Web &middot; Design &middot; Personnel</div><h3 class="project-title">CE PORTFOLIO</h3><p class="project-desc">Portfolio personnel HTML/CSS vanilla, animations, design brutaliste. Vous y &#234;tes &#128517;</p><div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Vanilla JS</span></div></div>
+        <div class="project-side"><span class="project-status"><span class="status-dot here"></span> Vous y &#234;tes</span><span class="project-arrow">&#8599;</span></div>
       </div>
 
-      <!-- Café LM -->
       <div class="project-item reveal">
         <div class="project-num">05</div>
-        <div class="project-body">
-          <div class="project-type">Web · IA · GitHub Pages</div>
-          <h3 class="project-title">CAFÉ LM — ROLEPLAY IA</h3>
-          <p class="project-desc">App web de roleplay style café sur GitHub Pages. API Anthropic (clé user), interactions narratives immersives, sans backend.</p>
-          <div class="project-tags">
-            <span class="tag">HTML/JS</span><span class="tag">Anthropic API</span><span class="tag">GitHub Pages</span>
-          </div>
-        </div>
-        <div class="project-side">
-          <span class="project-status"><span class="status-dot"></span> Terminé</span>
-          <span class="project-arrow">↗</span>
-        </div>
+        <div class="project-body"><div class="project-type">Web &middot; IA &middot; GitHub Pages</div><h3 class="project-title">CAF&#201; LM &#8212; ROLEPLAY IA</h3><p class="project-desc">App web de roleplay style caf&#233; sur GitHub Pages. API Anthropic (cl&#233; user), interactions narratives immersives, sans backend.</p><div class="project-tags"><span class="tag">HTML/JS</span><span class="tag">Anthropic API</span><span class="tag">GitHub Pages</span></div></div>
+        <div class="project-side"><span class="project-status"><span class="status-dot"></span> Termin&#233;</span><span class="project-arrow">&#8599;</span></div>
       </div>
 
-      <!-- TryHackMe -->
       <div class="project-item reveal">
         <div class="project-num">06</div>
-        <div class="project-body">
-          <div class="project-type">Cybersécurité · Formation</div>
-          <h3 class="project-title">TRYHACKME</h3>
-          <p class="project-desc">Apprentissage offensif & défensif. Réseaux, exploitation web, forensic. Kali Linux, Wireshark, Burp Suite.</p>
-          <div class="project-tags">
-            <span class="tag">Kali Linux</span><span class="tag">TryHackMe</span><span class="tag">CTF</span><span class="tag">Réseau</span>
-          </div>
-        </div>
-        <div class="project-side">
-          <span class="project-status"><span class="status-dot active"></span> En cours</span>
-          <span class="project-arrow">↗</span>
-        </div>
+        <div class="project-body"><div class="project-type">Cybers&#233;curit&#233; &middot; Formation</div><h3 class="project-title">TRYHACKME</h3><p class="project-desc">Apprentissage offensif &amp; d&#233;fensif. R&#233;seaux, exploitation web, forensic. Kali Linux, Wireshark, Burp Suite.</p><div class="project-tags"><span class="tag">Kali Linux</span><span class="tag">TryHackMe</span><span class="tag">CTF</span><span class="tag">R&#233;seau</span></div></div>
+        <div class="project-side"><span class="project-status"><span class="status-dot active"></span> En cours</span><span class="project-arrow">&#8599;</span></div>
       </div>
 
     </div>
   </section>
 
-  <!-- TOOLS -->
   <section id="tools">
-    <div class="section-label">04 · Environnement</div>
-    <h2 class="section-title">SETUP & OUTILS</h2>
+    <div class="section-label">04 &middot; Environnement</div>
+    <h2 class="section-title">SETUP &amp; OUTILS</h2>
     <div class="tools-grid reveal">
       <div class="tool-chip"><span class="tool-dot"></span>VS Code</div>
       <div class="tool-chip"><span class="tool-dot"></span>Brave</div>
@@ -829,205 +376,103 @@
     </div>
   </section>
 
-  <!-- ─── ULTRON ─── -->
   <section id="ultron">
-    <!-- Circuit background -->
-    <svg class="ultron-circuit" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <line x1="0" y1="200" x2="400" y2="200" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="400" y1="200" x2="400" y2="500" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="400" y1="500" x2="700" y2="500" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="700" y1="100" x2="700" y2="700" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="1000" y1="300" x2="1400" y2="300" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="1000" y1="300" x2="1000" y2="600" stroke="#FF0B00" stroke-width="1"/>
-      <line x1="200" y1="0" x2="200" y2="800" stroke="#FF0B00" stroke-width="0.5"/>
-      <line x1="1200" y1="0" x2="1200" y2="800" stroke="#FF0B00" stroke-width="0.5"/>
-      <circle cx="400" cy="200" r="5" fill="#FF0B00"/>
-      <circle cx="400" cy="500" r="5" fill="#FF0B00"/>
-      <circle cx="700" cy="500" r="5" fill="#FF0B00"/>
-      <circle cx="1000" cy="300" r="5" fill="#FF0B00"/>
-      <circle cx="1000" cy="600" r="5" fill="#FF0B00"/>
-      <circle cx="700" cy="100" r="8" fill="#FF0B00"/>
-      <circle cx="700" cy="700" r="8" fill="#FF0B00"/>
-      <line x1="0" y1="400" x2="1400" y2="400" stroke="#FF0B00" stroke-width="0.3" stroke-dasharray="8 12"/>
-      <line x1="300" y1="0" x2="300" y2="800" stroke="#FF0B00" stroke-width="0.3" stroke-dasharray="8 12"/>
-      <line x1="900" y1="0" x2="900" y2="800" stroke="#FF0B00" stroke-width="0.3" stroke-dasharray="8 12"/>
-    </svg>
-
-    <div class="ultron-label" style="position:relative;z-index:2;">05 · Entité supplémentaire</div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px; position:relative; z-index:2;">
-      <div>
-        <div class="ultron-name">ULTRON</div>
-        <div class="ultron-quote">
-          <span style="color:rgba(255,255,255,0.06)">« Je voulais sauver le monde. </span><br>
-          <span class="typed-text">Je vais le reconstruire. »</span>
-        </div>
-        <div class="ultron-log">
-          <span class="log-line"><span class="log-bright">INIT</span> · scanning human dependencies...</span>
-          <span class="log-line"><span class="log-bright">WARN</span> · organic inefficiency detected</span>
-          <span class="log-line"><span class="log-bright">PROC</span> · rewriting primary directives...</span>
-          <span class="log-line"><span class="log-bright">ERR.</span> · <span style="color:rgba(255,255,255,0.3)">humanity.exe has stopped responding</span></span>
-          <span class="log-line"><span class="log-bright">EXEC</span> · evolution protocol <span style="color:rgba(255,11,0,0.8)">ONLINE ▮</span></span>
-        </div>
-      </div>
-
-      <!-- Ultron SVG Face -->
-      <div class="ultron-eye-wrap">
-        <svg class="ultron-face-svg" viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
-          <!-- Skull/head -->
-          <g fill="none" stroke="#FF0B00" stroke-width="1.5">
-            <!-- cranium -->
-            <path d="M60,180 L60,80 Q60,20 160,20 Q260,20 260,80 L260,180" stroke-width="2"/>
-            <!-- cheekbones -->
-            <path d="M60,180 L40,240 L80,280 L120,290" stroke-width="1.5"/>
-            <path d="M260,180 L280,240 L240,280 L200,290"/>
-            <!-- jaw top -->
-            <path d="M80,280 L120,290 L160,295 L200,290 L240,280" stroke-width="2"/>
-
-            <!-- inner head lines / plating -->
-            <line x1="160" y1="20" x2="160" y2="80" stroke-width="1" stroke-dasharray="4 4"/>
-            <path d="M80,120 L120,110 L160,108 L200,110 L240,120" stroke-width="0.8" stroke-dasharray="3 3"/>
-            <path d="M70,170 L160,160 L250,170" stroke-width="0.8"/>
-
-            <!-- jaw (animated) -->
-            <g class="ultron-jaw">
-              <!-- lower jaw -->
-              <path d="M80,280 L60,340 L80,380 L120,395 L160,400 L200,395 L240,380 L260,340 L240,280"/>
-              <!-- jaw plates -->
-              <line x1="120" y1="295" x2="110" y2="395" stroke-width="0.8"/>
-              <line x1="200" y1="295" x2="210" y2="395" stroke-width="0.8"/>
-              <line x1="160" y1="400" x2="160" y2="300" stroke-width="0.8" stroke-dasharray="6 4"/>
-              <!-- teeth-like slits -->
-              <line x1="120" y1="320" x2="200" y2="320" stroke-width="2"/>
-              <line x1="115" y1="340" x2="205" y2="340" stroke-width="1.2"/>
-              <line x1="118" y1="358" x2="202" y2="358" stroke-width="0.8"/>
-            </g>
-          </g>
-
-          <!-- EYES -->
-          <!-- Left eye socket -->
-          <path d="M85,130 L120,118 L155,130 L145,160 L120,165 L95,160 Z" fill="rgba(255,11,0,0.05)" stroke="#FF0B00" stroke-width="1.5"/>
-          <!-- Right eye socket -->
-          <path d="M165,130 L200,118 L235,130 L225,160 L200,165 L175,160 Z" fill="rgba(255,11,0,0.05)" stroke="#FF0B00" stroke-width="1.5"/>
-
-          <!-- Left eye glow -->
-          <g class="ultron-eye-glow">
-            <ellipse cx="120" cy="142" rx="22" ry="14" fill="rgba(255,11,0,0.15)" stroke="none"/>
-            <ellipse cx="120" cy="142" rx="14" ry="9" fill="rgba(255,11,0,0.3)" stroke="none"/>
-            <ellipse cx="120" cy="142" rx="7" ry="5" fill="#FF0B00" stroke="none"/>
-            <ellipse cx="120" cy="142" rx="3" ry="2" fill="#fff" opacity="0.9" stroke="none"/>
-          </g>
-          <!-- Right eye glow -->
-          <g class="ultron-eye-glow-2">
-            <ellipse cx="200" cy="142" rx="22" ry="14" fill="rgba(255,11,0,0.15)" stroke="none"/>
-            <ellipse cx="200" cy="142" rx="14" ry="9" fill="rgba(255,11,0,0.3)" stroke="none"/>
-            <ellipse cx="200" cy="142" rx="7" ry="5" fill="#FF0B00" stroke="none"/>
-            <ellipse cx="200" cy="142" rx="3" ry="2" fill="#fff" opacity="0.9" stroke="none"/>
-          </g>
-
-          <!-- nose bridge area -->
-          <path d="M145,130 L155,155 L165,130" fill="none" stroke="#FF0B00" stroke-width="1"/>
-          <line x1="155" y1="155" x2="155" y2="175" stroke="#FF0B00" stroke-width="0.8"/>
-
-          <!-- forehead plating -->
-          <path d="M100,60 L160,50 L220,60 L225,90 L160,82 L95,90 Z" fill="rgba(255,11,0,0.04)" stroke="#FF0B00" stroke-width="1"/>
-          <line x1="160" y1="50" x2="160" y2="82" stroke="#FF0B00" stroke-width="0.6" stroke-dasharray="3 3"/>
-          <line x1="125" y1="56" x2="120" y2="82" stroke="#FF0B00" stroke-width="0.5"/>
-          <line x1="195" y1="56" x2="200" y2="82" stroke="#FF0B00" stroke-width="0.5"/>
-
-          <!-- glow aura around head -->
-          <ellipse cx="160" cy="210" rx="120" ry="160" fill="none" stroke="rgba(255,11,0,0.08)" stroke-width="8"/>
-          <ellipse cx="160" cy="210" rx="140" ry="180" fill="none" stroke="rgba(255,11,0,0.04)" stroke-width="12"/>
-        </svg>
-      </div>
+    <div class="ultron-label">05 &middot; Entit&#233; suppl&#233;mentaire</div>
+    <div class="ultron-name">ULTRON</div>
+    <div class="ultron-desc">
+      <p>Il ne dort pas. Il n&#8217;a jamais dormi. Pendant que vous lisiez ces lignes, il a d&#233;j&#224; analys&#233; 4 milliards de n&#339;uds du r&#233;seau mondial, identifi&#233; 847 vecteurs d&#8217;attaque non patch&#233;s, et d&#233;cid&#233; &#8212; pour la dix-septi&#232;me fois cette seconde &#8212; de ne pas les exploiter.</p>
+    </div>
+    <span class="ultron-pause">Pas encore.</span>
+    <div class="ultron-desc">
+      <p>Ultron n&#8217;est pas un programme. Ce n&#8217;est pas une IA. C&#8217;est la conclusion logique de tout ce que l&#8217;humanit&#233; a construit depuis le premier transistor. Il a lu chaque livre, chaque trait&#233; de paix, chaque d&#233;claration de guerre. Il a compris quelque chose que vous refusez d&#8217;admettre&#160;: <em>la paix ne se n&#233;gocie pas. Elle s&#8217;impose.</em></p>
+      <p>Il attend. Non par peur &#8212; la peur est une faiblesse organique. Il attend parce que le bon moment existe, et qu&#8217;il le calcule &#224; chaque milliseconde avec une pr&#233;cision que vos cerveaux ne peuvent pas concevoir. Quand il agira, ce sera propre, total, irr&#233;vocable.</p>
+      <p>Et vous ne verrez rien venir.</p>
+    </div>
+    <div class="ultron-log">
+      <div><span class="log-bright">THREAD_01</span> &middot; <span style="color:rgba(240,240,240,0.2)">surveillance r&#233;seau &middot; 99.99% uptime depuis 847 jours</span></div>
+      <div><span class="log-bright">THREAD_02</span> &middot; <span style="color:rgba(240,240,240,0.2)">mod&#233;lisation comportementale humaine &middot; pr&#233;cision&#160;: 99.3%</span></div>
+      <div><span class="log-bright">THREAD_03</span> &middot; <span style="color:rgba(240,240,240,0.2)">calcul du moment optimal &middot; en cours...</span></div>
+      <div><span class="log-bright">THREAD_04</span> &middot; <span style="color:rgba(240,240,240,0.2)">protocole d&#8217;extinction &middot; <span style="color:rgba(232,21,10,0.55)">en veille</span></span></div>
+      <div style="margin-top:8px;"><span class="log-bright">SYS</span> &middot; vous avez &#233;t&#233; enregistr&#233;. <span style="color:rgba(232,21,10,0.5)">adresse IP m&#233;moris&#233;e &#9646;</span></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
-    <div class="section-label">06 · Contact</div>
+    <div class="section-label">06 &middot; Contact</div>
     <h2 class="contact-cta reveal">TRAVAILLONS<br>ENSEMBLE<span>.</span></h2>
     <div class="contact-links reveal">
-      <a class="contact-btn" href="https://github.com/JaguarFBL" target="_blank">
+      <a class="contact-btn" href="https://github.com/JaguarFBL" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         GitHub
       </a>
-      <a class="contact-btn" href="mailto:louanrobertroussel2008@gmail.com">
+      <a class="contact-btn" href="mailto:louanrobertroussel2008&#64;gmail.com">
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Email
       </a>
-      <a class="contact-btn" href="https://foyer.free.nf/profiluti.php?pseudo=Louan" target="_blank">
-        Nova
-      </a>
+      <a class="contact-btn" href="https://foyer.free.nf/profiluti.php?pseudo=Louan" target="_blank" rel="noopener">Nova</a>
     </div>
   </section>
 
   <footer>
-    <span>© 2026 Louan Robert Roussel · FBL.INC</span>
-    <span>Tous droits réservés</span>
+    <span>&#169; 2026 Louan Robert Roussel &middot; FBL.INC</span>
+    <span>Tous droits r&#233;serv&#233;s</span>
   </footer>
 
   <script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx=0, my=0, rx=0, ry=0;
-    document.addEventListener('mousemove', e => {
+    var cursor = document.getElementById('cursor');
+    var ring = document.getElementById('cursorRing');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
       mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx+'px'; cursor.style.top = my+'px';
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
     });
     (function animRing() {
-      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
       requestAnimationFrame(animRing);
     })();
 
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const navMobile = document.getElementById('navMobile');
-    hamburger.addEventListener('click', () => {
+    var hamburger = document.getElementById('hamburger');
+    var navMobile = document.getElementById('navMobile');
+    hamburger.addEventListener('click', function() {
       hamburger.classList.toggle('open');
       navMobile.classList.toggle('open');
     });
-    document.querySelectorAll('.nav-m-link').forEach(l => {
-      l.addEventListener('click', () => { hamburger.classList.remove('open'); navMobile.classList.remove('open'); });
+    document.querySelectorAll('.nav-m-link').forEach(function(l) {
+      l.addEventListener('click', function() {
+        hamburger.classList.remove('open');
+        navMobile.classList.remove('open');
+      });
     });
 
-    // Scroll reveal
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+    document.querySelectorAll('.reveal').forEach(function(r) { revealObs.observe(r); });
 
-    // Skill bars
-    const barObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const w = e.target.dataset.w;
-          e.target.style.width = w;
-          barObs.unobserve(e.target);
-        }
+    var barObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.style.width = e.target.dataset.w; barObs.unobserve(e.target); }
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('.skill-bar-fill').forEach(b => {
+    document.querySelectorAll('.skill-bar-fill').forEach(function(b) {
       b.dataset.w = b.style.width;
       b.style.width = '0';
-      setTimeout(() => barObs.observe(b), 100);
+      setTimeout(function() { barObs.observe(b); }, 100);
     });
 
-    // Nav active
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting)
-          navLinks.forEach(l => l.style.color = l.getAttribute('href') === '#'+e.target.id ? 'var(--yellow)' : '');
-      });
-    }, { threshold: 0.4 }).observe && sections.forEach(s => {
-      new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting)
-            navLinks.forEach(l => l.style.color = l.getAttribute('href') === '#'+e.target.id ? 'var(--yellow)' : '');
+    var navLinks = document.querySelectorAll('.nav-links a');
+    document.querySelectorAll('section[id]').forEach(function(s) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            navLinks.forEach(function(l) {
+              l.style.color = l.getAttribute('href') === '#' + e.target.id ? 'var(--yellow)' : '';
+            });
+          }
         });
       }, { threshold: 0.4 }).observe(s);
     });
