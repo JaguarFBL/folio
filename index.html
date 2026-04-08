@@ -4,252 +4,879 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Louan Robert Roussel</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Coral+Pixels&family=Honk:MORF@15&family=Momo+Signature&family=Momo+Trust+Display&family=Monoton&family=Plaster&family=Press+Start+2P&family=Rampart+One&family=Rubik+80s+Fade&family=Train+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --cream: #F5F0EA;
+        --yellow: #dcdf04;
+        --red: #FF0B00;
+        --white: #ffffff;
+        --grey: #888;
+        --border: 2px solid rgba(255,255,255,0.08);
+        --card-bg: #111111;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--bg);
+        color: var(--white);
+        font-family: 'DM Mono', monospace;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ─── CURSOR ─── */
+      .cursor {
+        width: 12px; height: 12px;
+        background: var(--yellow);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.15s ease, background 0.2s;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-ring {
+        width: 36px; height: 36px;
+        border: 1.5px solid rgba(220,223,4,0.5);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transition: all 0.08s ease;
+        transform: translate(-50%, -50%);
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed; top: 0; left: 0; right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 40px;
+        background: rgba(10,10,10,0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: var(--border);
+      }
+      .nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--yellow);
+        letter-spacing: 0.05em;
+      }
+      .nav-links {
+        display: flex; gap: 32px; list-style: none;
+      }
+      .nav-links a {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: var(--grey);
+        text-decoration: none;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        background: none; border: none; padding: 0; border-radius: 0; box-shadow: none;
+      }
+      .nav-links a:hover { color: var(--yellow); }
+
+      /* ─── SECTIONS ─── */
+      section {
+        min-height: 100vh;
+        padding: 120px 80px 80px;
+        position: relative;
+      }
+
+      /* ─── HERO ─── */
+      #hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 80px;
+        overflow: hidden;
+      }
+      .hero-tag {
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.2s forwards;
+      }
+      .hero-name {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: clamp(52px, 9vw, 120px);
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        opacity: 0;
+        animation: fadeUp 0.9s 0.4s forwards;
+      }
+      .hero-name span { color: var(--yellow); }
+      .hero-sub {
+        margin-top: 32px;
+        font-size: 14px;
+        color: var(--grey);
+        max-width: 520px;
+        line-height: 1.7;
+        opacity: 0;
+        animation: fadeUp 0.9s 0.6s forwards;
+      }
+      .hero-keyboard {
+        margin-top: 64px;
+        display: flex; gap: 6px;
+        opacity: 0;
+        animation: fadeUp 0.9s 0.9s forwards;
+      }
+      .key {
+        font-family: 'Space Mono', monospace;
+        font-size: clamp(28px, 4vw, 52px);
+        color: var(--white);
+        display: inline-block;
+        transition: color 0.2s, transform 0.15s;
+      }
+      .key:hover { color: var(--yellow); transform: translateY(-6px); }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 40px; left: 80px;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--grey);
+        text-transform: uppercase;
+        display: flex; align-items: center; gap: 10px;
+        opacity: 0;
+        animation: fadeUp 0.9s 1.2s forwards;
+      }
+      .hero-scroll::before {
+        content: '';
+        display: block;
+        width: 40px; height: 1px;
+        background: var(--grey);
+      }
+      .hero-bg-text {
+        position: absolute;
+        right: -20px; top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: clamp(100px, 18vw, 260px);
+        color: rgba(255,255,255,0.02);
+        letter-spacing: -0.05em;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ─── SECTION HEADER ─── */
+      .section-label {
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 16px;
+        display: flex; align-items: center; gap: 12px;
+      }
+      .section-label::before {
+        content: '';
+        display: block; width: 32px; height: 1px;
+        background: var(--yellow);
+      }
+      .section-title {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: clamp(32px, 5vw, 64px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 60px;
+      }
+      .divider {
+        width: 100%; height: 1px;
+        background: rgba(255,255,255,0.06);
+        margin: 80px 0;
+      }
+
+      /* ─── ABOUT ─── */
+      #about { background: var(--bg); }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .about-text p {
+        font-size: 15px;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 16px;
+      }
+      .about-text p strong { color: var(--white); }
+
+      .id-card {
+        background: var(--card-bg);
+        border: var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transform: rotate(2deg);
+        transition: transform 0.3s;
+      }
+      .id-card:hover { transform: rotate(0deg) scale(1.02); }
+      .id-card-header {
+        background: var(--yellow);
+        color: #000;
+        padding: 12px 20px;
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .id-card-body { padding: 20px; }
+      .id-row {
+        display: flex; justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 12px;
+      }
+      .id-row:last-child { border-bottom: none; }
+      .id-label { color: var(--grey); letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px; }
+      .id-value { color: var(--white); font-family: 'Space Mono', monospace; }
+      .id-card-footer {
+        background: #000;
+        color: var(--white);
+        padding: 10px 20px;
+        font-family: 'Space Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        opacity: 0.6;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .parcours-list {
+        list-style: none;
+        margin-top: 32px;
+      }
+      .parcours-list li {
+        display: flex; gap: 16px; align-items: flex-start;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+        line-height: 1.5;
+      }
+      .parcours-list li .dot {
+        width: 6px; height: 6px; min-width: 6px;
+        background: var(--yellow);
+        border-radius: 50%;
+        margin-top: 6px;
+      }
+
+      /* ─── SKILLS ─── */
+      #skills { background: #0d0d0d; }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      .skill-card {
+        background: var(--card-bg);
+        border: var(--border);
+        border-radius: 10px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.3s, transform 0.3s;
+      }
+      .skill-card::before {
+        content: '';
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 2px;
+        background: var(--yellow);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s;
+      }
+      .skill-card:hover { border-color: rgba(220,223,4,0.3); transform: translateY(-4px); }
+      .skill-card:hover::before { transform: scaleX(1); }
+      .skill-name {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      .skill-desc {
+        font-size: 12px;
+        color: var(--grey);
+        line-height: 1.6;
+      }
+      .skill-level {
+        margin-top: 16px;
+        height: 2px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .skill-level-bar {
+        height: 100%;
+        background: var(--yellow);
+        border-radius: 2px;
+        transition: width 1s ease;
+      }
+
+      /* ─── TOOLS ─── */
+      #tools { background: var(--bg); }
+      .tools-grid {
+        display: flex; flex-wrap: wrap; gap: 16px;
+      }
+      .tool-chip {
+        background: var(--card-bg);
+        border: var(--border);
+        border-radius: 8px;
+        padding: 12px 20px;
+        display: flex; align-items: center; gap: 10px;
+        font-size: 13px;
+        transition: border-color 0.2s, background 0.2s;
+        cursor: default;
+      }
+      .tool-chip:hover {
+        border-color: rgba(220,223,4,0.4);
+        background: #161616;
+      }
+      .tool-chip .tool-dot {
+        width: 6px; height: 6px;
+        background: var(--yellow);
+        border-radius: 50%;
+      }
+
+      /* ─── PROJECTS ─── */
+      #projects { background: #0d0d0d; }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .project-card {
+        background: var(--card-bg);
+        border: var(--border);
+        border-radius: 12px;
+        padding: 32px;
+        display: flex; flex-direction: column;
+        gap: 16px;
+        transition: border-color 0.3s, transform 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card.featured {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .project-card:hover {
+        border-color: rgba(220,223,4,0.3);
+        transform: translateY(-3px);
+      }
+      .project-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 100%; height: 1px;
+        background: linear-gradient(90deg, var(--yellow), transparent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s;
+      }
+      .project-card:hover::after { transform: scaleX(1); }
+      .project-type {
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+      .project-title {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 1.2;
+      }
+      .project-desc {
+        font-size: 13px;
+        color: var(--grey);
+        line-height: 1.7;
+        flex: 1;
+      }
+      .project-tags {
+        display: flex; flex-wrap: wrap; gap: 8px;
+        margin-top: auto;
+      }
+      .tag {
+        font-size: 10px;
+        padding: 4px 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 4px;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.08em;
+        font-family: 'Space Mono', monospace;
+      }
+      .project-status {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--grey);
+      }
+      .status-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--grey);
+      }
+      .status-dot.active {
+        background: #4dff91;
+        box-shadow: 0 0 6px #4dff91;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+
+      /* featured visual mockup */
+      .project-visual {
+        background: #0a0a0a;
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 8px;
+        padding: 24px;
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.4);
+        overflow: hidden;
+      }
+      .project-visual .line-green { color: #4dff91; }
+      .project-visual .line-yellow { color: var(--yellow); }
+      .project-visual .line-grey { color: #555; }
+      .project-visual .blink {
+        display: inline-block;
+        width: 7px; height: 13px;
+        background: var(--yellow);
+        animation: blink 1s step-end infinite;
+        vertical-align: middle;
+        margin-left: 2px;
+      }
+      @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+      /* ─── CONTACT ─── */
+      #contact {
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 80vh;
+      }
+      .contact-cta {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: clamp(32px, 6vw, 80px);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 48px;
+      }
+      .contact-cta span { color: var(--yellow); }
+      .contact-links {
+        display: flex; flex-wrap: wrap; gap: 16px;
+      }
+      .contact-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: transparent;
+        border: 1.5px solid rgba(255,255,255,0.15);
+        color: var(--white);
+        padding: 14px 28px;
+        border-radius: 6px;
+        font-family: 'DM Mono', monospace;
+        font-size: 13px;
+        text-decoration: none;
+        transition: all 0.2s;
+        letter-spacing: 0.05em;
+      }
+      .contact-btn:hover {
+        border-color: var(--yellow);
+        color: var(--yellow);
+        background: rgba(220,223,4,0.04);
+        box-shadow: none;
+      }
+      .contact-btn svg {
+        width: 14px; height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        padding: 32px 80px;
+        border-top: var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        color: var(--grey);
+        letter-spacing: 0.1em;
+      }
+
+      /* ─── SCROLL REVEAL ─── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 900px) {
+        section { padding: 100px 32px 60px; }
+        .about-grid { grid-template-columns: 1fr; }
+        .projects-grid { grid-template-columns: 1fr; }
+        .project-card.featured { grid-column: span 1; display: flex; }
+        .project-visual { display: none; }
+        nav { padding: 16px 24px; }
+        footer { padding: 24px 32px; flex-direction: column; gap: 8px; text-align: center; }
+        .hero-bg-text { display: none; }
+      }
+    </style>
 </head>
 <body>
 
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<div id="page-Accueil" class="section">
-    <h2>
-      Bonjour !
-      <span>Bonjour !</span>
-      <span>Bonjour !</span>
-      <span>Désolé c'est rendu un peu tard</span>
-    </h2>
-
- <div class="keyboard" style="margin-top: 5%; margin-left: 10%;">
-   <span class="key">P</span>
-   <span class="key">O</span>
-   <span class="key">R</span>
-   <span class="key">T</span>
-   <span class="key">E</span>
-   <span class="key">F</span>
-   <span class="key">O</span>
-   <span class="key">L</span>
-   <span class="key">I</span>
-   <span class="key">O</span>
- </div>
-
-
-</div>
-
-<div id="page-Présentation" class="section">
-
-    <h1 style="margin-right: 75%; " class="bbh-bartle-regular">Presentation</h1>
-    <p style="margin-right: 60%;">vous pouvez y découvrir quelques informations sur moi</p>
-    <h1 style="position: absolute; margin-top: 150px; margin-right: 80%;">Mon parcours :</h1>
-    <ul style="position: absolute; margin-top: 200px; margin-right: 50%;">
-      <li>J'ai réalisé ma maternelle et mon primaire à Saint Jeanne d'Arc à Guer</li>
-      <li>Ensuite j'ai réalisé mon collège au Collège Saint Maurice à Guer</li>
-      <li>Actuellement je réalise une Terminale STI2D SIN au lycée la Mennais de Ploërmel</li>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">LRR</div>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#tools">Outils</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <h1 style="position: absolute; margin-top: 300px; margin-right: 80%;">Mes diplômes :</h1>
-    <ul style="position: absolute; margin-top: 350px; margin-right: 75%;">
-      <li>Brevet mention très bien</li>
-      <li>ASSR 1 et 2</li>
-      <li>PSC1</li>
-    </ul>
-    <h1 style="position: absolute; margin-top: 500px; margin-right: 0%;">Je suis curieux, toujours à la recherche de nouvelles découvertes. Je suis intéressé d'un peu de tout et de rien mais surtout de l'informatique et de l'Histoire.</h1>
-    
+  </nav>
 
-    <div id="card" style="margin-left: 50%;">
-    <div id="card-title">
-      <h1>Carte d'embarquement</h1>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-text">LRR</div>
+    <p class="hero-tag">BUT Informatique · Cybersécurité · Ploërmel</p>
+    <h1 class="hero-name">Louan<br><span>Robert</span><br>Roussel</h1>
+    <p class="hero-sub">Étudiant en cybersécurité, développeur full-stack passionné. Je construis des projets à l'interface de l'IA, du réseau et du web.</p>
+    <div class="hero-keyboard">
+      <span class="key">P</span><span class="key">O</span><span class="key">R</span><span class="key">T</span><span class="key">E</span><span class="key">F</span><span class="key">O</span><span class="key">L</span><span class="key">I</span><span class="key">O</span>
     </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
 
-    <div id="card-id">
-      <div id="card-number">
-        <p class="cardtitle">Numéro de titre :</p>
-        <p>44-33-1</p>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">01 · À propos</div>
+    <h2 class="section-title">Présentation</h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>Je suis <strong>Louan Robert Roussel</strong>, étudiant en <strong>BUT Informatique parcours Cybersécurité</strong> à l'IUT de Vannes, avec un objectif long terme : intégrer l'<strong>ENSIBS</strong> via le partenariat IUT.</p>
+        <p>Je viens d'un Bac STI2D SIN au lycée La Mennais de Ploërmel, où j'ai développé mes bases en électronique, programmation embarquée et systèmes numériques.</p>
+        <p>Curieux de nature, je touche à tout : IA locale, cybersécurité, design brutaliste, systèmes distribués… et je construis des projets concrets pour apprendre.</p>
+        <ul class="parcours-list">
+          <li><span class="dot"></span>Maternelle & primaire — Saint Jeanne d'Arc, Guer</li>
+          <li><span class="dot"></span>Collège — Saint Maurice, Guer</li>
+          <li><span class="dot"></span>Bac STI2D SIN — Lycée La Mennais, Ploërmel</li>
+          <li><span class="dot"></span>BUT Informatique (Cybersécurité) — IUT de Vannes</li>
+        </ul>
       </div>
-        <p class="cardtitle">Mots clés : Ambition / recruteur polytechnique</p>
-    </div>
-
-    <div id="card-information">
-
-      <div id="card-photo"></div>
-
-      <div id="card-text">
-
-      <div id="card-name">
-        <div class="card-box"></div>
-        <p class="cardtitle">Nom :</p>
-        <p>Robert Roussel</p>
-        <div class="card-box"></div>
-        <p class="cardtitle">Prénom :</p>
-        <p>Louan</p>
-      </div>
-
-      <div id="card-detail">
-        <div class="card-box">
-          <p class="cardtitle">Sexe :</p>
-          <p>M</p>
+      <div class="id-card">
+        <div class="id-card-header">Carte d'embarquement — N° 44-33-1</div>
+        <div class="id-card-body">
+          <div class="id-row"><span class="id-label">Nom</span><span class="id-value">Robert Roussel</span></div>
+          <div class="id-row"><span class="id-label">Prénom</span><span class="id-value">Louan</span></div>
+          <div class="id-row"><span class="id-label">Né le</span><span class="id-value">13.02.2008</span></div>
+          <div class="id-row"><span class="id-label">Ville</span><span class="id-value">Ploërmel, Bretagne</span></div>
+          <div class="id-row"><span class="id-label">Diplômes</span><span class="id-value">Brevet · ASSR 1&2 · PSC1</span></div>
+          <div class="id-row"><span class="id-label">Passions</span><span class="id-value">IA · Cyber · Design · Géopol</span></div>
+          <div class="id-row"><span class="id-label">Mots clés</span><span class="id-value">Ambition · Curiosité</span></div>
         </div>
+        <div class="id-card-footer">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+      </div>
+    </div>
+  </section>
 
-        <div class="card-box">
-          <p class="cardtitle">Né(e) le :</p>
-          <p>13.02.2008</p>
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">02 · Compétences</div>
+    <h2 class="section-title">Stack &amp; savoir-faire</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-name">HTML / CSS</div>
+        <div class="skill-desc">Sites web dynamiques, design systems, animations CSS avancées. Intégration avec MySQL/PHP pour des apps full-stack.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Scripting, API Flask, intégrations d'IA (Mistral, Anthropic), automatisation, Raspberry Pi. Apprentissage continu.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">C++</div>
+        <div class="skill-desc">Bases solides acquises en STI2D. Programmation systèmes, logique bas-niveau, algorithmie.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 55%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">PHP / SQL</div>
+        <div class="skill-desc">Backend web, authentification, gestion de sessions, MariaDB/MySQL, requêtes complexes, pattern PRG.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 65%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Linux</div>
+        <div class="skill-desc">Administration système, Kali Linux pour la cybersécurité, Zorin OS au quotidien, Raspberry Pi OS, scripts bash.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 60%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Cybersécurité</div>
+        <div class="skill-desc">Parcours TryHackMe, hardening PHP/.htaccess, outils OWASP, notions de pentesting. En apprentissage actif.</div>
+        <div class="skill-level"><div class="skill-level-bar" style="width: 40%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">03 · Projets</div>
+    <h2 class="section-title">Ce que je construis</h2>
+    <div class="projects-grid">
+
+      <!-- JARVIS - featured -->
+      <div class="project-card featured reveal">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span class="project-type">IA · Raspberry Pi · Full-stack</span>
+            <span class="project-status"><span class="status-dot active"></span> En développement</span>
+          </div>
+          <h3 class="project-title">J.A.R.V.I.S.</h3>
+          <p class="project-desc">Assistant personnel IA déployé sur Raspberry Pi 5. Architecture multi-agents avec Flask, streaming SSE, mémoire SQLite (WAL mode), intégration Spotify via Spotipy, système d'authentification 3 rôles (admin/limited/guest), outils (DuckDuckGo, bash, fichiers), boucle d'auto-amélioration nocturne planifiée. API Mistral pour l'inférence rapide, Ollama + qwen2.5-coder:7b pour le code complexe en local.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Mistral API</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">SSE</span>
+            <span class="tag">Raspberry Pi 5</span>
+            <span class="tag">Spotify</span>
+          </div>
         </div>
-
-        <div class="card-box">
-          <p class="cardtitle">Ville :</p>
-          <p>Guer</p>
+        <div class="project-visual">
+          <span class="line-grey">// jarvis · agent loop</span><br>
+          <span class="line-green">✓ Flask server</span> <span class="line-grey">running on :5000</span><br>
+          <span class="line-green">✓ SQLite WAL</span> <span class="line-grey">memory loaded</span><br>
+          <span class="line-green">✓ Spotify</span> <span class="line-grey">connected</span><br>
+          <span class="line-yellow">→ Mistral API</span> <span class="line-grey">ready</span><br>
+          <span class="line-yellow">→ Ollama</span> <span class="line-grey">qwen2.5-coder:7b</span><br>
+          <span class="line-grey">──────────────────────</span><br>
+          <span class="line-green">Monsieur</span><span class="line-grey">, que puis-je faire ?</span><span class="blink"></span>
         </div>
       </div>
 
-      <div id="card-sign">
-        <p class="cardtitle" style="margin-top: 10px;">Passion :</p>
-            <p>Crypto, Design, Montage, IA,</p><br>
-            <p>Actualités, Politique, Géopolitique</p>
-      </div> 
+      <!-- NOVA -->
+      <div class="project-card reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="project-type">Réseau social · Web</span>
+          <span class="project-status"><span class="status-dot active"></span> Actif</span>
+        </div>
+        <h3 class="project-title">Nova</h3>
+        <p class="project-desc">Réseau social de campus en PHP/MariaDB. Design brutaliste poussé (offset shadows, 2.5px borders, DM Mono + Plus Jakarta Sans), système de profils très customisables (banner, thème couleur, effets visuels), hashtags, @mentions, clubs, chat, notifications DB-driven. Hébergé sur InfinityFree.</p>
+        <div class="project-tags">
+          <span class="tag">PHP</span>
+          <span class="tag">MariaDB</span>
+          <span class="tag">CSS Brutaliste</span>
+          <span class="tag">InfinityFree</span>
+          <span class="tag">Pattern PRG</span>
+        </div>
       </div>
+
+      <!-- KART TELEMETRY -->
+      <div class="project-card reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="project-type">Dashboard · IoT · PHP</span>
+          <span class="project-status"><span class="status-dot active"></span> Déployé</span>
+        </div>
+        <h3 class="project-title">Kart Telemetry</h3>
+        <p class="project-desc">Dashboard de télémétrie pour kart de compétition. PHP/MySQL sur Raspberry Pi, API JSON pour le polling live (4s), affichage temps réel des capteurs, gestion de sessions, pilotes et statuts. Interface construite sur index.php avec injection DB directe.</p>
+        <div class="project-tags">
+          <span class="tag">PHP</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">API JSON</span>
+          <span class="tag">JS Polling</span>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO -->
+      <div class="project-card reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="project-type">Web · Design</span>
+          <span class="project-status"><span class="status-dot" style="background:#dcdf04;box-shadow:0 0 6px #dcdf04"></span> Vous y êtes</span>
+        </div>
+        <h3 class="project-title">Ce portfolio</h3>
+        <p class="project-desc">Portfolio personnel en HTML/CSS vanilla. Animations CSS personnalisées, carte d'identité interactive, effets hover sur les outils, keyboard animé. Rendu dans les délais (ou presque 😅).</p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Vanilla JS</span>
+          <span class="tag">Google Fonts</span>
+        </div>
+      </div>
+
+      <!-- GITHUB CAFE -->
+      <div class="project-card reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="project-type">Web · IA · GitHub Pages</span>
+          <span class="project-status"><span class="status-dot"></span> Terminé</span>
+        </div>
+        <h3 class="project-title">Café LM — Roleplay IA</h3>
+        <p class="project-desc">Application web de roleplay style café hébergée sur GitHub Pages. Utilise l'API Anthropic (clé fournie par l'utilisateur) pour des interactions narratives immersives. Interface browser-based sans backend.</p>
+        <div class="project-tags">
+          <span class="tag">HTML/JS</span>
+          <span class="tag">Anthropic API</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
+      </div>
+
+      <!-- TRYHACKME -->
+      <div class="project-card reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="project-type">Cybersécurité · Formation</span>
+          <span class="project-status"><span class="status-dot active"></span> En cours</span>
+        </div>
+        <h3 class="project-title">Parcours TryHackMe</h3>
+        <p class="project-desc">Apprentissage de la cybersécurité offensive et défensive via TryHackMe. Réseaux, exploitation web, forensic, OSCP prep. Kali Linux comme environnement principal, complété par Wireshark et Burp Suite.</p>
+        <div class="project-tags">
+          <span class="tag">Kali Linux</span>
+          <span class="tag">TryHackMe</span>
+          <span class="tag">CTF</span>
+          <span class="tag">Réseau</span>
+        </div>
+      </div>
+
     </div>
+  </section>
 
-    <div id="card-code">
-      <p>
-        <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      </p>
+  <div class="divider"></div>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="section-label">04 · Environnement</div>
+    <h2 class="section-title">Outils &amp; setup</h2>
+    <div class="tools-grid reveal">
+      <div class="tool-chip"><span class="tool-dot"></span>VS Code</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Brave Browser</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Firefox</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Zorin OS</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Kali Linux</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Raspberry Pi 5</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Git / GitHub</div>
+      <div class="tool-chip"><span class="tool-dot"></span>WampServer</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Claude (Anthropic)</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Mistral AI</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Ollama</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Spotify</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Wireshark</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Burp Suite</div>
+      <div class="tool-chip"><span class="tool-dot"></span>Tailscale</div>
     </div>
-  </div>
-</div>
+  </section>
 
-<div id="page-Compétences" class="section">
-    <h1 style="margin-right: 75%; color: #ffffff;" class="bbh-bartle-regular">Compétences</h1>
-    <p style="margin-right: 50%;">vous pouvez y découvrir mes compétences</p>
-  
-    <div class="competence" style="margin-top: 5%; margin-left: 10%;   top: 10%;">
-      <h2 style="color: #ffff00; text-align: center; margin-top: 10px;   font-size: 20px;">HTML/CSS</h2><br>
-      <p style="color: #ffffff; text-align: center; font-size: 12px;">Je maîtrise les bases du HTML et du CSS pour créer des sites web dynamiques avec MySQL.</p>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">05 · Contact</div>
+    <h2 class="contact-cta reveal">Travaillons<br>ensemble.<span>.</span></h2>
+    <div class="contact-links reveal">
+      <a class="contact-btn" href="https://github.com/JaguarFBL" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a class="contact-btn" href="mailto:louanrobertroussel2008@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
     </div>
+  </section>
 
-    <div class="competence" style="margin-top: 5%; margin-left: 10%;   top: 30%;">
-      <h2 style="color: #ffff00; text-align: center; margin-top: 10px; font-size: 20px;">C++</h2><br>
-      <p style="color: #ffffff; text-align: center; font-size: 12px;">Je maîtrise les bases du C++ grâce à mon BAC STI2D</p>
-    </div>
+  <footer>
+    <span>© 2024 Louan Robert Roussel · FBL.INC</span>
+    <span>Tous droits réservés</span>
+  </footer>
 
-    <div class="competence" style="margin-top: 5%; margin-left: 10%;   top: 50%;">
-      <h2 style="color: #ffff00; text-align: center; margin-top: 10px; font-size: 20px; font-size: 20px;">Python</h2><br>
-      <p style="color: #ffffff; text-align: center; font-size: 12px;">Je maîtrise les bases de python et j'en apprends tous les jours</p>
-    </div>
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) *.12;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
 
-</div>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => obs.observe(r));
 
+    // Animate skill bars on reveal
+    const skillBars = document.querySelectorAll('.skill-level-bar');
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.style.width;
+          barObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    skillBars.forEach(b => { const w = b.style.width; b.style.width = '0'; setTimeout(() => barObs.observe(b), 100); b.style.transitionDelay = '0.2s'; });
 
-<div id="page-Outils" class="section">
-  
-    <h1 style="margin-right: 75%; margin-top: 0px;" class="bbh-bartle-regular">Outils</h1>
-
-    <div class="image-wrapper"  style="z-index: 1000; position: absolute; margin-top: -25%; margin-left: 8%;">
-    <img src="Brave.svg" width="100px">
-       <div class="content">
-          <div class="text">Pour moi, un des meilleurs navigateurs sur Chromium, je l'utilise tous les jours.</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: 5%; margin-left: 3%;">
-    <img src="Firefox.svg" width="100px" >
-       <div class="content">
-          <div class="text">Un navigateur très bien et avec une bonne éthique</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: -10%; margin-left: 22%;">
-    <img src="Visual_Studio_Code_1.35_icon.svg.png" width="100px" >
-       <div class="content">
-          <div class="text">On ne le présente plus, mon éditeur de code HTML/CSS/JAVASCRIPT/PYTHON</div>
-       </div>
-    </div>
-
-   <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: 18%; margin-left: 18%;">
-    <img src="claude.webp" width="100px" >
-       <div class="content">
-          <div class="text">Claude une très bonne IA pour le code</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: 30%; margin-left: 40%;">
-    <img src="Mistral_AI.svg.png" width="100px" >
-       <div class="content">
-          <div class="text">Une IA très rapide et française, je l'utilise pour des questions brèves</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: -28%; margin-left: 72%;">  
-    <img src="Kali-dragon-icon.svg.png" width="100px" >
-       <div class="content">
-          <div class="text">Je me penche sur la cybersécurité et quoi de mieux qu'une distribution faite pour ça !</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: 3%; margin-left: 78%;">
-    <img src="Linux_Mint.svg.png" width="100px" >
-       <div class="content">
-          <div class="text">La première distribution que j'ai utilisée pour découvrir le pouvoir de Linux</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: -15%; margin-left: 50%;"> 
-    <img src="windows-11.png" width="100px" >
-       <div class="content">
-          <div class="text">Mon OS pour le quotidien, limité mais simple</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: 12%; margin-left: 52%;">
-    <img src="github.svg" width="100px" >
-       <div class="content">
-          <div class="text">Utile pour héberger des sites statiques, collaborer pour un projet et pour en découvrir d'autres</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="z-index: 1000; position: absolute; margin-top: -32%; margin-left: 40%;">
-    <img src="Spotify_icon.svg.png" width="100px" >
-       <div class="content">
-          <div class="text">La musique c'est sacré quand je code</div>
-       </div>
-    </div>
-
-    <div class="image-wrapper" style="position: absolute; margin-top: 25%; margin-left: 68%;">
-      <img src="wampserver.jpg" width="100px">
-       <div class="content">
-          <div class="text">Pour tester mes applications web j'utilise wampserver, un serveur en local</div>
-       </div>
-    </div>
-</div>
-
-<div id="page-Contacts" class="section">
-    <h1 style="margin-right: 75%; color: #100e0e; font-size: 30px; " class="bbh-bartle-regular">Projets</h1>
-    <p style="margin-right: 50%;">vous pouvez y découvrir mes projets</p>
-    <div class="bbh-bartle-regular">
-    <ul style="position: absolute; margin-top: -120px; margin-left: -100px; font-size: 20px; color: #ffe600; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);">
-      <li>Site web statique en HTML/CSS (celui-ci)</li>
-      <li>Réseau social (en train d'être fini)</li>
-      <li>Prise en main d'une Raspberry Pi 5 pour en faire une arcade</li>
-      <li>Suivi de cours TryHackMe</li>
-      <li>Création de vidéos pendant mes années à l'Atelier Info Média</li>
-    </ul>
-    </div>
-</div>
-
-<div id="page-Bonus" class="section">
-    <h1 style="margin-right: 75%; color: #000000; font-size: 30px;" class="bbh-bartle-regular">Contacts</h1>
-    <h3>Mon github :</h3>
-    <a href="https://github.com/JaguarFBL">github.com/LouanRR</a>
-    <h3>Mon mail :</h3>
-    <a href="mailto:louanrobertroussel2008@gmail.com">
-      contactez-moi par mail
-    </a>
-    <div class="v3">
-    <h4>Réalisé trop tard</h4>
-    </div>
-    <footer>
-     <p style="text-align: center;">©Copyright Louan Robert Roussel/FBL.INC . Tous droits réservés.</p>
-    </footer>
-</div>
-
-
+    // Nav active state
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sectionObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => { l.style.color = l.getAttribute('href') === '#'+e.target.id ? 'var(--yellow)' : ''; });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => sectionObs.observe(s));
+  </script>
 </body>
 </html>
