@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folio — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Folio</h1>
+      <p class="page-subtitle">Portfolio interactif — HTML/CSS/JS pur, zéro dépendance</p>
+
+      <div class="project-hero-image"><img src="../image/folio/preview.jpg" alt="Folio"></div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>Besoin d'un portfolio en ligne pour présenter mes projets de design et développement. Contrainte : zéro build step, hébergé sur GitHub Pages, compatible mobile et desktop.</p>
+        </div>
+        <div>
+          <h3>Approche</h3>
+          <p>HTML/CSS/JS vanilla, sans framework ni bibliothèque. Glassmorphism épuré, grille de scanlines, overlay fumée, stickers technos draggable avec physique (gravité, collision, throw). Curseur personnalisé avec lerp, hamburger menu responsive, cassette décorative.</p>
+        </div>
+        <div>
+          <h3>Résultat</h3>
+          <p>Un site léger, rapide, responsive, avec une identité visuelle forte. Les stickers animés et le curseur custom offrent une expérience interactive inattendue pour un portfolio classique.</p>
+        </div>
+      </div>
+
+      <div class="project-detail-text">
+        <h2>Détails techniques</h2>
+        <p>Développé en HTML/CSS/JS pur avec hébergement GitHub Pages. Le système de stickers utilise un moteur physique maison (gravité 0.15, friction 0.94, répulsion curseur, désactivation overlap). Le curseur custom utilise un lerp fluide avec agrandissement au survol des éléments interactifs.</p>
+        <p>Design responsive avec un breakpoint à 768px : menu hamburger, empilement vertical, masquage de la cassette sur mobile. Le thème monochrome avec accents glassmorphism assure une cohérence visuelle sur toutes les pages.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

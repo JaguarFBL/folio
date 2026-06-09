@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULTRON — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>ULTRON</h1>
+      <p class="page-subtitle">Unité de Lutte et Traitement des Réseaux en Opérations Natives — IA de cybersécurité autonome en français</p>
+
+      <div class="project-hero-image"><img src="../image/Ultron/preview-1.jpg" alt="ULTRON screenshot"></div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>ULTRON est une IA de cybersécurité autonome conçue pour opérer en local ou sur le cloud (Oracle Cloud ARM64). Elle combine multiples fournisseurs LLM avec fallback automatique, mémoire vectorielle ChromaDB, et un système de profilage adaptatif pour apprendre le nom, les projets, l'humeur et le fuseau horaire de son utilisateur.</p>
+        </div>
+        <div>
+          <h3>Problème</h3>
+          <p>Les outils de cybersécurité existants sont soit trop spécialisés (un seul domaine), soit trop complexes à orchestrer manuellement. Aucun assistant français open-source ne propose une chaîne complète OSINT → Dark Web → APIs → Cyber → Défense en un seul scan, avec un moteur proactif capable d'auto-évolution.</p>
+        </div>
+        <div>
+          <h3>Solution</h3>
+          <p>Un assistant modulaire en Python 3.10+ avec 98 outils répartis en 8 modules (OSINT, Dark Web, APIs externes, Cyber, Défense, Utilitaires, Scan réseau, Advanced OSINT). Scans chaînés automatisés, fiches personnes chiffrées, watchers temps réel, mode Attaque/Défense, skills YAML, tâches planifiées et dashboard web Flask.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full"><img src="../image/Ultron/preview-2.jpg" alt="ULTRON architecture"></div>
+
+      <div class="project-detail-text">
+        <h2>Architecture</h2>
+        <p>Développé en Python 3.10+, ULTRON tourne en local (Windows) ou sur Oracle Cloud ARM64. Il utilise un modèle multi-provider avec fallback automatique : Groq (Llama 3.3 70B) → Google Gemini → OpenRouter. La mémoire est divisée en court terme (RAM deque) et long terme (ChromaDB vectorielle avec sentence-transformers).</p>
+        <p>Le système de profilage adaptatif permet à l'IA d'apprendre le nom, les projets, l'humeur et le fuseau horaire de son utilisateur directement depuis les conversations, offrant une expérience personnalisée.</p>
+
+        <h2>Modules et outils</h2>
+        <p><strong>OSINT Recon</strong> (2 outils) — OSINT web multi-agent avec 15 requêtes DDGS parallèles, extraction d'emails, téléphones et réseaux sociaux.</p>
+        <p><strong>OSINT Advanced</strong> (7 outils) — Social 49 plateformes, permutations email, âge domaine, Wayback Machine, crt.sh, DNS, opérateur téléphone.</p>
+        <p><strong>Dark Web Scanner</strong> (2 outils) — Fuites HIBP, Pastebin, Telegram, Dehashed/IntelX.</p>
+        <p><strong>External APIs</strong> (19 outils) — Shodan, VirusTotal, IPinfo, AbuseIPDB, SecurityTrails, Censys, Hunter.io, OTX, URLScan.io, WhoisXML, BuiltWith, GreyNoise et plus.</p>
+        <p><strong>Cyber Tools</strong> (19 outils) — CVE, tech detect, dorks, password strength, phishing detect, cookie audit, hash lookup, reverse IP, WAF, CMS, HTTP methods, CORS, CSP, HSTS, port scan.</p>
+        <p><strong>Defense Tools</strong> (6 outils) — VPN/Proxy/Tor detection, SSL/TLS audit, DNS security, DMARC/SPF/DKIM.</p>
+        <p><strong>Utility Tools</strong> (12 outils) — Base64, hex, hash, password generator, UUID, timestamp, CIDR, user-agent, port lookup, text analyze.</p>
+        <p><strong>Network Scanner</strong> (3 outils) — Scan ports, connexions réseau, DNS lookup.</p>
+      </div>
+
+      <div class="project-image-full"><img src="../image/Ultron/preview-2.jpg" alt="ULTRON features"></div>
+
+      <div class="project-detail-text">
+        <h2>Fonctionnalités clés</h2>
+        <p><strong>Scans chaînés</strong> — <code>/ultron &lt;cible&gt;</code> exécute OSINT → Dark Web → APIs → Cyber → Défense en séquence avec rapport sauvegardé.</p>
+        <p><strong>Fiches personnes</strong> — Base chiffrée (Fernet+PBKDF2) avec arbre généalogique, score de crédibilité, détection comptes suspects, historique.</p>
+        <p><strong>Watchers</strong> — 5 daemons temps réel : CPU/RAM/température, fichiers modifiés, RSS news, nouveaux ports, intégrité fichiers.</p>
+        <p><strong>Moteur proactif</strong> — Évalue la pertinence des événements via LLM, notifications en heures ouvrées, anti-spam.</p>
+        <p><strong>Auto-évolution</strong> — Analyse son propre code, écrit des améliorations, les teste en sandbox, commit sur GitHub.</p>
+        <p><strong>Mode Attaque/Défense</strong> — Persistant, change le prompt système LLM et les priorités d'outils.</p>
+        <p><strong>Skills YAML</strong> — 6 skills (Brainstorm, Cybersec, OSINT, Recon, Phishing, AuditSec) injectés via <code>@nom</code>.</p>
+        <p><strong>Tâches planifiées</strong> — Surveillance automatique avec APScheduler (types: osint/darkweb/cyber/defense/ultron).</p>
+        <p><strong>Dashboard web</strong> — Interface Flask avec scan one-click, outils rapides, gestion des tâches, consultation des rapports.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

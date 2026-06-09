@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-SIN — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Mini-SIN</h1>
+      <p class="page-subtitle">Simulation Arduino / Proteus d'un chariot automatisé entre deux points A et B — STI2D Spécialité SIN</p>
+
+      <div class="project-hero-image"><img src="../image/mini-sin/preview.jpg" alt="Mini-SIN"></div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>Mini-projet de Terminale STI2D SIN : concevoir et simuler un chariot automatisé effectuant des navettes entre deux points A et B, avec détection de position, affichage et signalisation sonore.</p>
+        </div>
+        <div>
+          <h3>Versions</h3>
+          <p><strong>V1</strong> — 1 cycle convoyage simple, détection par fins de course (boutons), buzzer, moniteur série.</p>
+          <p><strong>V2</strong> — Ajout afficheur LCD, température (DS18B20), compteur tours (TM1637).</p>
+          <p><strong>V3</strong> — Capteurs ultrasons HC-SR04, servomoteur 180°, détection obstacles, cycles automatisés.</p>
+        </div>
+        <div>
+          <h3>Objectifs</h3>
+          <p>Concevoir l'algorithme déplacement A↔B, simuler capteurs/actionneurs sous Proteus, structurer le code en versions et fonctions réutilisables, maîtriser la détection de distance HC-SR04.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full">Image pleine largeur</div>
+
+      <div class="project-detail-text">
+        <h2>Pinouts</h2>
+        <p><strong>V1</strong> — LEDAV D2, LEDAR D3, DCY D4, FCG D5, FCD D6, BUZ D10</p>
+        <p><strong>V2</strong> — LEDAV D9, LEDAR D3, DCY D4, FCG D5, FCD D6, BUZ D10, TM1637 CLK D7/DIO D8, DS18B20 D2</p>
+        <p><strong>V3</strong> — LEDAV D9, LEDAR D3, DCY D7, BUZ D10, HC-SR04 Avant TRIG D6/ECHO D11, Arrière TRIG D12/ECHO D2, Servomoteur</p>
+
+        <h2>Dépôt GitHub</h2>
+        <p><a href="https://github.com/JaguarFBL/Mini-SIN" target="_blank" rel="noopener">github.com/JaguarFBL/Mini-SIN</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

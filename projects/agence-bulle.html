@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agence Bulle — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Agence Bulle</h1>
+      <p class="page-subtitle">Site immersif, outils interactifs — 2022</p>
+
+      <div class="project-hero-image">Image hero</div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>Agence Bulle conçoit des expériences muséales immersives mêlant scénographie physique et dispositifs numériques. Pour son propre site vitrine, l'agence souhaitait un espace en ligne qui incarne sa philosophie : jouer avec les frontières entre réel et virtuel.</p>
+        </div>
+        <div>
+          <h3>Problème</h3>
+          <p>Les sites traditionnels ne rendent pas justice au travail de l'agence. Comment montrer des expériences interactives dans un format statique ? Le site devait lui-même devenir une démonstration des capacités de l'agence, tout en restant accessible et performant.</p>
+        </div>
+        <div>
+          <h3>Solution</h3>
+          <p>Un site web où chaque page est une micro-expérience : curseur personnalisé, transitions organiques, éléments flottants réactifs au mouvement de la souris. L'utilisateur navigue à travers un univers visuel qui évolue en temps réel, à la manière d'une exposition virtuelle.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full">Image pleine largeur</div>
+
+      <div class="project-detail-text">
+        <h2>Expérience immersive</h2>
+        <p>La navigation s'inspire des mécaniques de visite muséale : chaque projet est une « salle » que l'on découvre en se déplaçant horizontalement. Des bulles interactives — clin d'œil au nom de l'agence — révèlent du contenu supplémentaire au survol. L'ambiance sonore, subtile et optionnelle, complète l'immersion sans jamais distraire.</p>
+        <p>Le défi technique principal était de maintenir des performances irréprochables malgré l'utilisation intensive de WebGL et d'animations CSS. Nous avons opté pour un rendu progressif et un système de détection de capacité, garantissant une expérience fluide sur tout type d'appareil.</p>
+      </div>
+
+      <div class="project-image-full">Image pleine largeur</div>
+
+      <div class="project-detail-text">
+        <h2>Résultats</h2>
+        <p>Le site a remporté le prix de l'innovation numérique décerné par le Club des Directeurs Artistiques en 2023. Le temps moyen passé sur le site dépasse les 4 minutes, et le taux de conversion vers le formulaire de contact est de 12 %. Plusieurs prospects ont cité le site comme raison principale de leur prise de contact.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

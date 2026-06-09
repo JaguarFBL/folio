@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jarvis — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Jarvis</h1>
+      <p class="page-subtitle">Assistant IA personnel en terminal — 8500+ lignes Python, 30+ modules</p>
+
+      <div class="project-hero-image"><img src="../image/Jarvis/preview-1.jpg" alt="Jarvis screenshot"></div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Architecture</h3>
+          <p><code>main.py → Agent → LLM (4 providers) → Tools → Watchers → Web → Skills YAML → Memory (ChromaDB) → Profile → Evolution</code></p>
+          <p>Un assistant IA terminal complet avec 4 fournisseurs LLM (Groq → OpenCode Zen → OpenRouter), fallback automatique sur erreurs 429/404, cache MD5 30min et sélection de modèle par scoring de mots-clés.</p>
+        </div>
+        <div>
+          <h3>Problème</h3>
+          <p>Les assistants IA existants sont soit limités à une tâche unique, soit nécessitent un abonnement cloud. Aucun assistant open-source ne propose à la fois un terminal complet, des watchers système temps réel, un profil apprenant, une mémoire vectorielle, des skills modulaires et une évolution autonome.</p>
+        </div>
+        <div>
+          <h3>Solution</h3>
+          <p>Un assistant Python 8500+ lignes avec orchestrateur agent, 45+ outils, 8 skills YAML, sous-agents autonomes, mémoire court/long terme ChromaDB, profil apprenant persisté, 5 watchers daemons, interface web Flask, système d'auto-évolution avec sandbox et git commit automatique.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full"><img src="../image/Jarvis/preview-2.jpg" alt="Jarvis interface"></div>
+
+      <div class="project-detail-text">
+        <h2>Core</h2>
+        <p><strong>LLM</strong> — 4 providers avec fallback automatique, cache MD5 30min, modèle sélectionné par scoring de mots-clés.</p>
+        <p><strong>Agent</strong> — Orchestrateur détectant les outils par scoring de mots-clés (30+ outils) + fallback LLM, système de prompt avec contexte profil/mémoire/people/skill, 3 itérations max outil, streaming.</p>
+        <p><strong>Mémoire</strong> — Court terme (deque 20 messages) + Long terme ChromaDB (all-MiniLM-L6-v2, déduplication MD5, décroissance temporelle 90j).</p>
+        <p><strong>Profil</strong> — Profil apprenant persisté JSON : métier, spécialité, humeur, style, projets, préférences. Apprentissage automatique toutes les 5 interactions via LLM.</p>
+        <p><strong>Skills</strong> — Skills YAML avec triggers, contexte, règles, style, exemples, agent_mode pour sous-agents autonomes. 8 skills + template.</p>
+        <p><strong>Skill Agent</strong> — Sous-agent autonome avec boucle outil LLM (3 itérations), appels inter-agents (profondeur max 3).</p>
+        <p><strong>Proactive</strong> — File d'événements watchers filtrée par règles + LLM (max 10/min), notification si score > 0.7, heures silencieuses 23h-7h.</p>
+        <p><strong>People</strong> — Fiches personnes chiffrées (Fernet + PBKDF2), détection automatique dans la conversation, CRUD.</p>
+        <p><strong>Metrics</strong> — Métriques outils persistées : appels, erreurs, durée moyenne.</p>
+
+        <h2>Tools (45+)</h2>
+        <p>Lecture fichiers (texte/auto image/PDF), TTS Piper + Whisper local, Spotify (play/pause/volume/mood/queue), TV Samsung (WebSocket + WoL), apps Windows (90+ connues), mail Gmail, web search DuckDuckGo, météo Open-Meteo, rappels, macros, sessions, pages web, formulaires interactifs, GitHub PR.</p>
+
+        <h2>Watchers (5 daemons)</h2>
+        <p><strong>System</strong> — 15s, CPU/RAM/disque/batterie/température (seuils configurables).</p>
+        <p><strong>Files</strong> — 30s, fichiers modifiés, propose aide après 5min d'inactivité.</p>
+        <p><strong>News</strong> — 30min, 10 flux RSS + DDG news filtrés par profil.</p>
+        <p><strong>Mail</strong> — 120s, Gmail (désactivé par défaut).</p>
+        <p><strong>Spotify</strong> — 60s, détection nouveau morceau, backoff adaptatif.</p>
+
+        <h2>Web interface</h2>
+        <p>Flask sur <code>0.0.0.0:5050</code>, 4 onglets (Chat/Sessions/Mémoire/Détails), stats système, arbre mémoire Chrono, recherche sémantique, polling automatique.</p>
+
+        <h2>Commandes (30+)</h2>
+        <p><code>/help</code> (TUI fléchée), <code>/stats</code>, <code>/profile</code>, <code>/skills</code>, <code>/reload</code>, <code>/clear</code>, <code>/people</code>, <code>/person</code>, <code>/person-edit</code>, <code>/tts</code>, <code>/voice</code>, <code>/wake</code>, <code>/nowake</code>, <code>/code</code> (agent codage REPL), <code>/focus</code>, <code>/history</code>, <code>/export</code>, <code>/macro</code>, <code>/web</code>, <code>/tcheck</code>, <code>/github</code>, <code>/lock</code>, <code>/unlock</code>, <code>/quit</code>.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

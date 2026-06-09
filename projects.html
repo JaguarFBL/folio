@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projets — Folio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="image/Ghosts_29.webp">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="projects.html" style="opacity:1">Work</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <div class="container">
+      <h1>Projets</h1>
+      <p class="page-subtitle">Une sélection de travaux récents — du design graphique à l'interface web.</p>
+
+      <div class="projects-grid">
+        <div class="project-featured">
+          <a href="projects/mini-sin.html" class="project-card">
+            <div class="project-card-image"><img src="image/mini-sin/preview.jpg" alt="Mini-SIN"></div>
+            <div class="project-card-body">
+              <p class="project-card-number">01</p>
+              <h3>Mini-SIN</h3>
+              <p class="role">Chariot automatisé A↔B — Arduino</p>
+              <div class="project-card-tags">
+                <span>C++</span>
+                <span>Arduino</span>
+                <span>STI2D</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="project-secondary">
+          <a href="projects/folio.html" class="project-card">
+            <div class="project-card-image"><img src="image/folio/preview.jpg" alt="Folio"></div>
+            <div class="project-card-body">
+              <p class="project-card-number">02</p>
+              <h3>Folio</h3>
+              <p class="role">Portfolio design interactif</p>
+              <div class="project-card-tags">
+                <span>HTML/CSS/JS</span>
+                <span>UI/UX</span>
+                <span>2025</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/ultron.html" class="project-card">
+            <div class="project-card-image"><img src="image/Ultron/preview-1.jpg" alt="ULTRON"></div>
+            <div class="project-card-body">
+              <p class="project-card-number">03</p>
+              <h3>ULTRON</h3>
+              <p class="role">IA de cybersécurité autonome</p>
+              <div class="project-card-tags">
+                <span>Python</span>
+                <span>IA</span>
+                <span>Cybersécurité</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/jarvis.html" class="project-card">
+            <div class="project-card-image"><img src="image/Jarvis/preview-1.jpg" alt="Jarvis"></div>
+            <div class="project-card-body">
+              <p class="project-card-number">04</p>
+              <h3>Jarvis</h3>
+              <p class="role">Assistant IA personnel en terminal</p>
+              <div class="project-card-tags">
+                <span>Python</span>
+                <span>IA</span>
+                <span>8500+ lignes</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/projet-kart.html" class="project-card">
+            <div class="project-card-image"><img src="https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG" alt="Projet Kart"></div>
+            <div class="project-card-body">
+              <p class="project-card-number">05</p>
+              <h3>Projet Kart</h3>
+              <p class="role">Télémétrie kart de compétition</p>
+              <div class="project-card-tags">
+                <span>Raspberry Pi</span>
+                <span>PHP</span>
+                <span>STI2D</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <div class="pacman-runner">
+    <img src="image/png-clipart-pac-man-ghost-character-pac-man-ghosts-pac-man-text-rectangle-thumbnail-removebg-preview.png" alt="Pac-Man Ghost">
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trois principes pour une interface lisible — Article</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html">Work</a></li>
+      <li><a href="../blog.html" style="opacity:1">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page article-detail">
+    <div class="container">
+
+      <a href="../blog.html" class="back-link">&larr; Retour au blog</a>
+
+      <p class="article-meta">Design · 28.03.25</p>
+      <h1>Trois principes pour une interface lisible</h1>
+
+      <div class="article-body">
+        <p>On juge souvent un design à son apparence, mais la vraie mesure de sa qualité, c'est le confort de lecture. Une interface peut être belle et totalement illisible. Après des années à concevoir des écrans, j'ai fini par réduire mes critères à trois principes fondamentaux.</p>
+
+        <p><strong>La hiérarchie visuelle.</strong> L'œil humain ne lit pas une page de manière linéaire — il scanne, cherche des points d'accroche. Une interface lisible construit un chemin : un titre fort, un sous-titre qui nuance, un corps de texte qui développe. La taille, le poids et la couleur doivent guider le regard sans lui imposer d'effort. Si tout est important, rien ne l'est. Le premier réflexe à avoir en ouvrant une maquette est de se demander : qu'est-ce que l'utilisateur doit voir en premier ? En second ? Et ensuite ? Si la réponse n'est pas immédiate, c'est que la hiérarchie n'est pas assez marquée.</p>
+
+        <p><strong>Le contraste.</strong> Ne parlons pas seulement de couleurs — parlons de lisibilité. Le texte gris clair sur fond blanc est l'ennemi numéro un de l'accessibilité. Les WCAG recommandent un ratio de 4.5:1 pour le texte standard, et ce n'est pas un caprice. Avec l'âge, la sensibilité au contraste diminue. Ce qui vous semble chic et discret peut devenir invisible pour une personne de 50 ans. Le contraste, ce n'est pas un détail esthétique : c'est un prérequis fonctionnel. Et il ne concerne pas que le texte : les bordures, les icônes, les états de survol doivent aussi se distinguer clairement de leur environnement.</p>
+
+        <blockquote class="pull-quote">
+          <p>« Si vous devez plisser les yeux pour lire, ce n'est pas un choix de design — c'est un défaut. »</p>
+        </blockquote>
+
+        <p><strong>L'espacement.</strong> C'est le principe le plus sous-estimé. On a tendance à vouloir remplir — plus de contenu, plus d'infos, plus de widgets. Mais la lisibilité naît du vide. Un interlignage suffisant (1.5× la taille de police), des marges généreuses autour des blocs de texte, un padding confortable dans les cartes — tout cela réduit la charge cognitive. L'œil se repose, le cerveau traite mieux l'information. À titre d'exercice, prenez n'importe quelle interface qui vous semble difficile à lire et doublez tous les espacements. Vous serez surpris du résultat.</p>
+
+        <p>Ces trois principes — hiérarchie, contraste, espacement — s'appliquent à tous les supports, du site vitrine à l'application SaaS. Ils ne coûtent rien à implémenter, ne dépendent pas d'une tendance, et profitent à tous les utilisateurs, y compris ceux en situation de handicap. La prochaine fois que vous livrez une interface, posez-vous ces trois questions. Si l'une des réponses est floue, votre design a encore du travail.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musée Numérique — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Musée Numérique</h1>
+      <p class="page-subtitle">Parcours interactif, médiation culturelle — 2023</p>
+
+      <div class="project-hero-image">Image hero</div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>Le Musée Numérique est une institution dédiée à la démocratisation de l'art par le design d'interaction. Pour sa nouvelle aile permanente, le musée souhaitait remplacer les bornes tactiles obsolètes par un parcours immersif utilisant les dernières technologies de motion design et de reconnaissance de gestes.</p>
+        </div>
+        <div>
+          <h3>Problème</h3>
+          <p>Les anciennes bornes étaient peu intuitives, souvent en panne, et n'engageaient pas les visiteurs au-delà de 30 secondes. Le musée perdait son public jeune, pourtant cible prioritaire. Il fallait une solution robuste, accessible à tous les âges, et capable de s'adapter à des œuvres variées.</p>
+        </div>
+        <div>
+          <h3>Solution</h3>
+          <p>Un parcours interactif divisé en trois stations : une table tactile collaborative, un mur de projection réactif aux mouvements, et un dispositif de réalité augmentée sur tablette. Chaque station propose une médiation culturelle repensée autour du jeu et de l'exploration libre.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full">Image pleine largeur</div>
+
+      <div class="project-detail-text">
+        <h2>Design d'interaction</h2>
+        <p>L'interface utilisateur a été pensée comme une couche invisible : pas de boutons, pas de menus traditionnels. Les gestes — balayer, pincer, tourner, s'approcher — déclenchent des réactions visuelles et sonores. Le motion design guide naturellement l'utilisateur d'une étape à l'autre, sans texte explicatif.</p>
+        <p>La table tactile collaborative permet à plusieurs visiteurs d'interagir simultanément sur une même œuvre : chacun peut déposer une annotation visuelle, la déplacer, la superposer à celle des autres. Ces créations collectives sont projetées en fin de parcours, transformant le visiteur en acteur de l'exposition.</p>
+      </div>
+
+      <div class="project-image-full">Image pleine largeur</div>
+
+      <div class="project-detail-text">
+        <h2>Résultats</h2>
+        <p>Depuis l'installation en 2023, le temps d'interaction moyen est passé de 30 secondes à 6 minutes par station. La fréquentation de l'aile a augmenté de 55 %, et le musée a reçu un prix Muse pour l'innovation en médiation numérique. 92 % des visiteurs interrogés recommandent l'expérience.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

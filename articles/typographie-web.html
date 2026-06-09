@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lettre ouverte sur la typographie dans le web — Article</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html">Work</a></li>
+      <li><a href="../blog.html" style="opacity:1">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page article-detail">
+    <div class="container">
+
+      <a href="../blog.html" class="back-link">&larr; Retour au blog</a>
+
+      <p class="article-meta">Typographie · 10.04.25</p>
+      <h1>Lettre ouverte sur la typographie dans le web</h1>
+
+      <div class="article-body">
+        <p>La typographie web a connu une révolution silencieuse ces dix dernières années. On est passés d'une poignée de fonts système à un océan de possibilités avec les web fonts. Mais cette abondance a un coût — en performance, en accessibilité, en cohérence. Il est temps de prendre du recul.</p>
+
+        <p>Les polices variables (variable fonts) sont sans doute l'innovation la plus importante depuis OpenType. Une seule police contient tout un éventail de graisses, de largeurs, d'inclinaisons. Pour le designer, c'est un terrain de jeu : on peut animer le poids entre deux valeurs, ajuster l'<em>optical sizing</em> à la taille d'affichage, réduire le nombre de requêtes HTTP. Pourtant, peu de sites les utilisent vraiment. Pourquoi ? Parce que l'écosystème est encore jeune, que le support des outils de design est inégal, et que le nom de famille des axes (<code>wght</code>, <code>wdth</code>, <code>ital</code>) reste obscur pour beaucoup.</p>
+
+        <p>Le problème numéro un des web fonts, c'est le poids. Un fichier de police peut peser 200 à 400 Ko. Multipliez par deux ou trois polices (regular, bold, italic), et vous frôlez le mégaoctet — avant même d'avoir chargé une image. La solution n'est pas de renoncer aux web fonts, mais de les utiliser avec discipline : subsetting, format WOFF2, chargement avec <code>font-display: swap</code> et préchargement des fichiers critiques. Une police bien servie est une police invisible au chargement.</p>
+
+        <blockquote class="pull-quote">
+          <p>« Choisir une police, c'est choisir une voix. Et comme toute voix, elle doit porter sans effort. »</p>
+        </blockquote>
+
+        <p>Le <em>font pairing</em> (l'association de polices) est un autre sujet délicat. La règle d'or : une police pour les titres, une pour le corps de texte, jamais plus de deux familles sur une même page. On cherche le contraste sans la cacophonie. Une sans-serif géométrique pour les titres (comme Space Grotesk) associée à une serif généreuse pour le texte (Source Serif ou Literata) fonctionne presque toujours. Mais il faut tester les tailles réelles, le gris typographique, l'équilibre des graisses. Et surtout, ne pas oublier les caractères accentués — rien de pire qu'un site français avec des lettres cabossées parce que la police choisie n'a pas de bons diacritiques.</p>
+
+        <p>Enfin, parlons du fond : la typographie n'est pas un ornement, c'est le véhicule du message. Une belle police mal réglée (interlignage trop serré, ligne trop longue, contraste insuffisant) rendra la lecture pénible. Quelques repères : une ligne de texte ne devrait pas dépasser 70 caractères, l'interlignage devrait être autour de 1.5× la taille de police, et le ratio de contraste entre le texte et le fond doit respecter le niveau AA au minimum. La typographie, c'est le design qui se lit.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construire un curseur personnalisé sans framework — Article</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html">Work</a></li>
+      <li><a href="../blog.html" style="opacity:1">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page article-detail">
+    <div class="container">
+
+      <a href="../blog.html" class="back-link">&larr; Retour au blog</a>
+
+      <p class="article-meta">Dev · 22.05.25</p>
+      <h1>Construire un curseur personnalisé sans framework</h1>
+
+      <div class="article-body">
+        <p>Les curseurs personnalisés sont devenus un petit signe de qualité sur les sites créatifs. Pourtant, beaucoup les implémentent avec une librairie lourde alors qu'une cinquantaine de lignes de JavaScript suffisent. Voyons comment construire le vôtre, proprement.</p>
+
+        <p>Le principe est simple : on cache le curseur natif avec <code>cursor: none</code>, et on anime deux éléments — un grand cercle et un point — qui suivent la souris. La difficulté, c'est le fluidité. Un <code>transform</code> brut collé à l'événement <code>mousemove</code> donne un mouvement saccadé, surtout à 60 Hz. La solution s'appelle le <em>lerp</em> (interpolation linéaire). On stocke la position réelle de la souris et on fait glisser le curseur vers elle à chaque frame de la boucle d'animation : <code>x += (targetX - x) * 0.15</code>. Ce petit coefficient crée un trainé subtil qui transforme radicalement la sensation.</p>
+
+        <p>Il faut aussi penser à la détection tactile. Sur mobile et tablette, pas de curseur à afficher. On détecte la présence de <code>matchMedia('(hover: none)')</code> ou on écoute le premier événement tactile pour désactiver le système. Sans ça, vous bloquez l'affichage du curseur natif sur écran tactile — mauvaise expérience garantie. Un autre piège : les <code>iframe</code> et les bords de fenêtre. Si la souris quitte la fenêtre, le curseur personnalisé reste bloqué à la dernière position. Pensez à écouter <code>mouseleave</code> sur <code>document.documentElement</code> pour masquer les éléments.</p>
+
+        <blockquote class="pull-quote">
+          <p>« Un bon curseur personnalisé, c'est celui qu'on ne remarque pas — jusqu'à ce qu'il disparaisse sur un écran tactile. »</p>
+        </blockquote>
+
+        <p>Pour les interactions, on peut enrichir le comportement avec CSS. Quand le survol passe sur un lien ou un bouton, une classe <code>.cursor--hover</code> agrandit le cercle et change sa couleur via une transition CSS. Pas besoin de JS pour ça : un simple <code>mouseenter/mouseleave</code> sur les éléments interactifs, et la feuille de style fait le reste. On peut même utiliser <code>mix-blend-mode: difference</code> pour un effet d'inversion élégant. L'ensemble tient dans une cinquantaine de lignes de JavaScript vanille, zéro dépendance, et fonctionne sur tous les navigateurs récents.</p>
+
+        <p>Enfin, testez sur des machines lentes. Lerp + <code>requestAnimationFrame</code> est normalement léger, mais si le rendu ralentit, le curseur peut accuser un retard gênant. Une optimisation simple : limiter les mises à jour visuelles avec un seuil de distance minimale. Si la différence entre la position actuelle et la cible est inférieure à 0.5 px, on n'applique pas la transformation. Cela évite un travail inutile à chaque frame et préserve la batterie sur portable.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

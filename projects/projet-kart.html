@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet Kart — Projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="../image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../image/Ghosts_29.webp">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../projects.html" style="opacity:1">Work</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page project-detail">
+    <div class="container">
+
+      <a href="../projects.html" class="back-link">&larr; Retour aux projets</a>
+
+      <h1>Projet Kart</h1>
+      <p class="page-subtitle">Système de télémétrie et d'instrumentation pour kart de compétition — Raspberry Pi + MySQL + PHP</p>
+
+      <div class="project-hero-image"><img src="https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG" alt="Accueil Projet Kart"></div>
+
+      <div class="project-detail-grid">
+        <div>
+          <h3>Contexte</h3>
+          <p>Projet de fin d'année en Terminal STI2D — équipe de 4 étudiants. Objectif : concevoir un système complet de collecte et visualisation de données en temps réel pour un kart équipé de capteurs (température, humidité, batterie).</p>
+        </div>
+        <div>
+          <h3>Stack technique</h3>
+          <p>Raspberry Pi comme serveur central, MySQL pour le stockage, PHP/HTML/CSS/JavaScript pour l'interface web. Capteurs connectés via Arduino et ESP32, panneau solaire pour l'alimentation autonome.</p>
+        </div>
+        <div>
+          <h3>Résultat</h3>
+          <p>Un site web embarqué avec pages d'accueil (météo, classement, podium), sessions d'enregistrement des tours, conditions de pratique en temps réel, télémétrie batterie/courant/température, et carte interactive Windy.</p>
+        </div>
+      </div>
+
+      <div class="project-image-full"><img src="https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG" alt="Sessions Projet Kart"></div>
+
+      <div class="project-detail-text">
+        <h2>Pages du site</h2>
+
+        <h3>Accueil</h3>
+        <p>Résumé complet : heure, température ambiante, prochains Grands Prix, tableau des meilleurs temps et podium.</p>
+
+        <h3>Sessions</h3>
+        <p>Enregistrement des tours avec nom du pilote, détail des tours, profil pilote.</p>
+
+        <h3>Conditions de pratique</h3>
+        <p>Affichage des conditions extérieures et de la batterie via capteurs. Prévisions météo de la journée récupérées via API Open-Meteo.</p>
+
+        <h3>Télémétrie</h3>
+        <p>Affichage en temps réel des données du kart : batterie, courant, température de la batterie du kart électrique.</p>
+
+        <h3>Windy</h3>
+        <p>Carte interactive avec satellite intégrée via l'application web Windy.</p>
+      </div>
+
+      <div class="project-image-full"><img src="https://jaguarfbl.github.io/Projet-kart/Illustrations/T%C3%A9l%C3%A9m%C3%A9trie.PNG" alt="Télémétrie Projet Kart"></div>
+
+      <div class="project-detail-text">
+        <h2>Liens</h2>
+        <p><a href="https://github.com/JaguarFBL/Projet-kart" target="_blank" rel="noopener">GitHub</a> — <a href="https://jaguarfbl.github.io/Projet-kart/" target="_blank" rel="noopener">Site principal</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
