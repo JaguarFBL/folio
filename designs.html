@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designs — Folio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="image/Ghosts_29.webp">
+  <meta property="og:title" content="JaguarFBL — Portfolio">
+  <meta property="og:description" content="Portfolio interactif — projets, design et code.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="image/Ghosts_29.webp">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">JaguarFBL</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="projects.html">Work</a></li>
+      <li><a href="designs.html" style="opacity:1">Designs</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">À propos</a></li>
+      <li><a href="https://github.com/JaguarFBL" class="cta">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <div class="container">
+      <h1>Designs</h1>
+      <p class="page-subtitle">Sélections visuelles — survolez les titres pour révéler les images.</p>
+    </div>
+  </main>
+
+  <section class="designs" id="designs">
+    <div class="designs-list" id="designs-list">
+      <div class="designs-item" data-img="image/folio/preview.jpg">
+        <a href="projects/folio.html">
+          <span class="designs-roll">
+            <span class="designs-roll-text">FOLIO</span>
+            <span class="designs-roll-text designs-roll-copy" aria-hidden="true">FOLIO</span>
+          </span>
+        </a>
+      </div>
+      <div class="designs-item" data-img="image/Ultron/preview-1.jpg">
+        <a href="projects/ultron.html">
+          <span class="designs-roll">
+            <span class="designs-roll-text">ULTRON</span>
+            <span class="designs-roll-text designs-roll-copy" aria-hidden="true">ULTRON</span>
+          </span>
+        </a>
+      </div>
+      <div class="designs-item" data-img="image/Jarvis/preview-1.jpg">
+        <a href="projects/jarvis.html">
+          <span class="designs-roll">
+            <span class="designs-roll-text">JARVIS</span>
+            <span class="designs-roll-text designs-roll-copy" aria-hidden="true">JARVIS</span>
+          </span>
+        </a>
+      </div>
+      <div class="designs-item" data-img="image/mini-sin/preview.jpg">
+        <a href="projects/mini-sin.html">
+          <span class="designs-roll">
+            <span class="designs-roll-text">MINI-SIN</span>
+            <span class="designs-roll-text designs-roll-copy" aria-hidden="true">MINI-SIN</span>
+          </span>
+        </a>
+      </div>
+      <div class="designs-item" data-img="https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG">
+        <a href="projects/projet-kart.html">
+          <span class="designs-roll">
+            <span class="designs-roll-text">PROJET KART</span>
+            <span class="designs-roll-text designs-roll-copy" aria-hidden="true">PROJET KART</span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="designs-float" id="designs-float" aria-hidden="true">
+      <div class="designs-float-item"><img src="image/folio/preview.jpg" alt=""></div>
+      <div class="designs-float-item"><img src="image/Ultron/preview-1.jpg" alt=""></div>
+      <div class="designs-float-item"><img src="image/Jarvis/preview-1.jpg" alt=""></div>
+      <div class="designs-float-item"><img src="image/mini-sin/preview.jpg" alt=""></div>
+      <div class="designs-float-item"><img src="https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG" alt=""></div>
+    </div>
+  </section>
+
+  <section class="pixel-trail" id="pixel-trail">
+    <div class="pixel-trail-grid" id="pixel-trail-grid"></div>
+    <div class="pixel-trail-caption"><span>Les pixels prennent vie</span></div>
+  </section>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/pixel-trail.js"></script>
+</body>
+</html>
